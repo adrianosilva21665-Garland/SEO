@@ -1,0 +1,183 @@
+<!--
+  LP A — Forrocryl (https://emeindustria.ind.br/produtos/forrocryl/)
+  Arquivo: correcoes.html
+  Objetivo: Corrigir os 4 problemas identificados para melhorar QS Google Ads
+
+  COMO USAR:
+  Cada bloco abaixo é independente. Aplique no WordPress/Elementor/Yoast
+  conforme a seção indicada.
+-->
+
+<!-- ============================================================
+  CORREÇÃO 1 — Title Tag
+  Onde aplicar: Yoast SEO → Configurações de SEO da página → Título SEO
+  ============================================================ -->
+
+<!-- ANTES (com duplicação): -->
+<!-- Forro de Isopor EPS Forrocryl | EME - EME -->
+
+<!-- DEPOIS (corrigido): -->
+<title>Forro de Isopor EPS Forrocryl | Fábrica Direta | EME</title>
+
+<!-- Caracteres: 49 | Dentro do limite de 60 chars ✅ -->
+
+
+<!-- ============================================================
+  CORREÇÃO 2 — Inserir "antichamas" no texto corrido
+  Onde aplicar: seção 1 da LP (parágrafo de abertura ou bullets "Por que comprar da EME")
+  Adicionar o bullet abaixo na lista de diferenciais existente
+  ============================================================ -->
+
+<ul class="eps-beneficios">
+  <!-- ... bullets existentes mantidos ... -->
+  <li><strong>EPS antichamas Classe II A com laudo IPT</strong> – Certificação nº 1 086 143-203, atendendo normas técnicas para construção civil.</li>
+</ul>
+
+<!-- Alternativa: inserir no segundo parágrafo da seção 1 -->
+<p>
+  O Forrocryl é fabricado em EPS (poliestireno expandido) <strong>antichamas Classe II A</strong>,
+  com Laudo Técnico IPT nº 1 086 143-203 — qualidade comprovada para escritórios,
+  supermercados, lojas e galpões.
+</p>
+
+
+<!-- ============================================================
+  CORREÇÃO 3 — Inserir "isopor para forro" e variantes
+  Onde aplicar: seção "Indicado para" ou parágrafo existente
+  Inserir este parágrafo após o texto de abertura
+  ============================================================ -->
+
+<p>
+  <strong>Isopor para forro de teto</strong> em escritórios, galpões, supermercados,
+  lojas e residências — o <strong>EPS para teto</strong> da EME combina isolamento
+  térmico e acústico com instalação rápida. Se você busca
+  <strong>isopor para forro</strong> em escala, com consistência de fornecimento
+  e suporte comercial, fale com nossa equipe.
+</p>
+
+
+<!-- ============================================================
+  CORREÇÃO 4 — Seção FAQ
+  Onde aplicar: inserir ANTES do formulário de contato
+  O CSS .eps-faq já existe na página — apenas inserir o HTML abaixo
+  ============================================================ -->
+
+<section class="eps-faq">
+  <h2>Perguntas frequentes sobre Forro de Isopor EPS</h2>
+
+  <details>
+    <summary>Qual a diferença entre forro de isopor e forro de EPS?</summary>
+    <div class="faq-answer">
+      São o mesmo produto. Isopor é o nome popular do EPS (Poliestireno Expandido).
+      O forro de isopor EPS da EME é fabricado com poliestireno expandido antichamas,
+      nas medidas padrão para forro de teto.
+    </div>
+  </details>
+
+  <details>
+    <summary>O Forrocryl é antichamas?</summary>
+    <div class="faq-answer">
+      Sim. O Forrocryl é classificado como <strong>Classe II A de reação ao fogo</strong>,
+      com laudo técnico IPT nº 1 086 143-203. O produto retarda a propagação de chamas
+      e atende às normas técnicas para uso em construção civil.
+    </div>
+  </details>
+
+  <details>
+    <summary>Quais as medidas disponíveis para o forro de isopor?</summary>
+    <div class="faq-answer">
+      As medidas padrão são <strong>1243 × 618 × 20mm</strong> e
+      <strong>618 × 618 × 20mm</strong>. Outros tamanhos e espessuras (30mm, 40mm)
+      podem ser fabricados sob consulta. Entre em contato para verificar disponibilidade.
+    </div>
+  </details>
+
+  <details>
+    <summary>A EME vende forro de isopor para pessoa física?</summary>
+    <div class="faq-answer">
+      Nossa operação é focada em distribuidores, casas de material de construção,
+      construtoras e instaladores. Vendemos em escala (atacado). Para obras residenciais
+      pequenas, recomendamos buscar um de nossos revendedores na sua região.
+    </div>
+  </details>
+
+  <details>
+    <summary>A EME entrega Forrocryl fora de São Paulo?</summary>
+    <div class="faq-answer">
+      Sim. Atendemos distribuidores em todo o Brasil. O prazo e custo de frete
+      variam conforme a localidade. Preencha o formulário informando seu estado
+      e nossa equipe comercial entrará em contato com as condições.
+    </div>
+  </details>
+</section>
+
+
+<!-- ============================================================
+  SCHEMA MARKUP — FAQPage
+  Onde aplicar: Yoast SEO → Schema → Código personalizado
+  OU inserir no <head> via plugin de injeção de scripts
+  ============================================================ -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual a diferença entre forro de isopor e forro de EPS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "São o mesmo produto. Isopor é o nome popular do EPS (Poliestireno Expandido). O forro de isopor EPS da EME é fabricado com poliestireno expandido antichamas, nas medidas padrão para forro de teto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O Forrocryl é antichamas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O Forrocryl é classificado como Classe II A de reação ao fogo, com laudo técnico IPT nº 1 086 143-203. O produto retarda a propagação de chamas e atende às normas técnicas para uso em construção civil."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quais as medidas disponíveis para o forro de isopor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As medidas padrão são 1243 × 618 × 20mm e 618 × 618 × 20mm. Outros tamanhos e espessuras (30mm, 40mm) podem ser fabricados sob consulta."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A EME vende forro de isopor para pessoa física?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nossa operação é focada em distribuidores, casas de material de construção, construtoras e instaladores. Vendemos em escala (atacado). Para obras residenciais pequenas, recomendamos buscar um de nossos revendedores na sua região."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A EME entrega Forrocryl fora de São Paulo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Atendemos distribuidores em todo o Brasil. O prazo e custo de frete variam conforme a localidade. Preencha o formulário informando seu estado e nossa equipe comercial entrará em contato com as condições."
+      }
+    }
+  ]
+}
+</script>
+
+
+<!-- ============================================================
+  CORREÇÃO 5 — Alt text do hero image
+  O hero usa background-image via CSS (sem <img> tag), portanto
+  adicionar um <span> visualmente oculto OU um aria-label na <section>
+  ============================================================ -->
+
+<!-- Localizar a section do hero e adicionar aria-label: -->
+<!-- <section class="hero-section" aria-label="Forro de isopor EPS Forrocryl antichamas — EME Indústria"> -->
+
+<!-- OU adicionar link cruzado LP A → LP B após a galeria de produtos: -->
+<p class="lp-crosslink">
+  Veja também: <a href="/produtos/forro-de-isopor/">Forro de Isopor para Teto — linha completa EPS da EME</a>
+</p>
