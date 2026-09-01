@@ -1,0 +1,371 @@
+:root {
+  --cor-primaria: #b5651d;
+  --cor-primaria-escura: #8f4f16;
+  --cor-texto: #1f2328;
+  --cor-texto-suave: #4b5259;
+  --cor-fundo: #ffffff;
+  --cor-fundo-alt: #f6f4f1;
+  --cor-borda: #e2ddd6;
+  --cor-destaque-bg: #fff3d6;
+  --raio: 10px;
+  --sombra: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  line-height: 1.55;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2 {
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* Placeholder de dados a preencher */
+.placeholder {
+  background: var(--cor-destaque-bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  background: var(--cor-fundo);
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Botões */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: var(--raio);
+  padding: 12px 22px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, background 0.15s ease;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--cor-primaria-escura);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+.btn-full {
+  width: 100%;
+  border: none;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(180deg, var(--cor-fundo-alt), var(--cor-fundo));
+  padding: 72px 0 56px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  max-width: 780px;
+  margin: 0 auto 18px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--cor-texto-suave);
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* Benefícios */
+.beneficios {
+  padding: 56px 0;
+}
+
+.beneficios-lista {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 720px;
+  display: grid;
+  gap: 16px;
+}
+
+.beneficios-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1.05rem;
+}
+
+.icone {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cor-primaria);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* Especificações */
+.especificacoes {
+  padding: 56px 0;
+  background: var(--cor-fundo-alt);
+}
+
+.tabela-wrap {
+  overflow-x: auto;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--cor-fundo);
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+th, td {
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+th {
+  width: 40%;
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+}
+
+tr:last-child th,
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Vídeo */
+.video {
+  padding: 56px 0;
+}
+
+.video-wrap {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+.video-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Galeria */
+.galeria {
+  padding: 56px 0;
+  background: var(--cor-fundo-alt);
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.foto-placeholder {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--raio);
+  background: repeating-linear-gradient(
+    45deg,
+    #e2ddd6,
+    #e2ddd6 10px,
+    #ece8e2 10px,
+    #ece8e2 20px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+
+.foto-placeholder span {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.galeria-nota {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+/* Formulário */
+.formulario {
+  padding: 56px 0 88px;
+}
+
+.formulario-apoio {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+
+#form-inscricao {
+  max-width: 480px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+.campo {
+  display: grid;
+  gap: 6px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input, select {
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+input:focus, select:focus {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 1px;
+}
+
+.form-feedback {
+  min-height: 1.2em;
+  text-align: center;
+  font-weight: 600;
+}
+
+.form-feedback.sucesso {
+  color: #1f8a3b;
+}
+
+.form-feedback.erro {
+  color: #c62828;
+}
+
+/* Footer */
+.site-footer {
+  padding: 24px 0 90px;
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* CTA flutuante (mobile) */
+.cta-flutuante {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  text-align: center;
+  padding: 14px;
+  background: var(--cor-primaria);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 20;
+}
+
+@media (max-width: 640px) {
+  .cta-flutuante {
+    display: block;
+  }
+}
