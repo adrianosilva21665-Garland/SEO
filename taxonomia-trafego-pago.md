@@ -111,9 +111,9 @@ ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL_RSA_ENTREGA-RAPIDA_V1
 ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL_RSA_CERTIFICACAO-TECNICA_V1
 ```
 
-## 7. Exemplo aplicado: Impulsionamento de Vídeo — 4 Grupos de Anúncios por Público
+## 7. Exemplo aplicado: Impulsionamento de Vídeo — 4 Grupos de Anúncios por Tipo de Segmentação
 
-Campanha de vídeo (YouTube Ads/Google Ads) tem Grupo de Anúncios de verdade — diferente do PMax — então aqui a segmentação acontece dentro da campanha, um grupo por público.
+Campanha de vídeo (YouTube Ads/Google Ads) tem Grupo de Anúncios de verdade — diferente do PMax — então aqui a segmentação acontece dentro da campanha. Neste caso os 4 grupos **não são personas diferentes, são 4 métodos de segmentação diferentes testados em paralelo** (colocação, público personalizado, palavra-chave, demografia) para o mesmo vídeo/oferta. A regra é a mesma: **1 método de segmentação = 1 grupo**, nunca misturar dois métodos no mesmo grupo — se misturar, o relatório não mostra qual forma de achar audiência trouxe o lead mais barato.
 
 **Campanha** (mesmo padrão da seção 3, `TIPO` = `VIDEO`):
 ```
@@ -121,36 +121,38 @@ EME_LEADS_VIDEO_INSTITUCIONAL_BR_PT_V1
 ```
 > Troque `INSTITUCIONAL` pelo tema real do vídeo se for específico de produto (ex. `EPS-INDUSTRIAL`, `PAINEL-EPS`).
 
-**Grupo de Anúncios** — `[FUNIL]_[PUBLICO]`, um público por grupo, nunca um grupo "GERAL":
+**Grupo de Anúncios** — `[FUNIL]_[TIPO-SEGMENTACAO]-[DETALHE]`, um método de segmentação por grupo, nunca um grupo "GERAL":
 ```
-PROSPECCAO_ENGENHEIRO-ESPECIFICADOR
-PROSPECCAO_CONSTRUTORA-INCORPORADORA
-PROSPECCAO_ARQUITETO-PROJETISTA
-REMARKETING_VISITANTE-SITE
+PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO
+PROSPECCAO_PUBLICO-PERSONALIZADO
+PROSPECCAO_PALAVRA-CHAVE
+PROSPECCAO_DEMOGRAFICO-A-DEFINIR
 ```
 
-| Grupo | Tipo de público | Sinal de segmentação sugerido |
+| Grupo | Tipo de segmentação (targeting no Ads) | O que configurar |
 |---|---|---|
-| `PROSPECCAO_ENGENHEIRO-ESPECIFICADOR` | Prospecção | Públicos de intenção personalizada (buscas técnicas), in-market de construção/materiais |
-| `PROSPECCAO_CONSTRUTORA-INCORPORADORA` | Prospecção | Públicos por afinidade/setor, lista de empresas (customer match B2B) |
-| `PROSPECCAO_ARQUITETO-PROJETISTA` | Prospecção | Públicos de intenção personalizada + similar a leads convertidos |
-| `REMARKETING_VISITANTE-SITE` | Remarketing | Lista de remarketing do site (últimos 30/90 dias), excluindo convertidos |
+| `PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO` | **Colocações (Placements)** | Lista curada de canais do YouTube sobre construção/reforma/engenharia onde o anúncio pode aparecer |
+| `PROSPECCAO_PUBLICO-PERSONALIZADO` | **Público-alvo personalizado (Custom Segment)** | Público criado a partir de palavras/termos de busca recentes, apps ou sites que o público-alvo usa/visita |
+| `PROSPECCAO_PALAVRA-CHAVE` | **Palavras-chave** | Lista de keywords relacionadas ao vídeo/canal onde o anúncio deve aparecer (igual lógica de Search, mas para conteúdo de vídeo) |
+| `PROSPECCAO_DEMOGRAFICO-A-DEFINIR` | **Demografia** | Idade, gênero, status parental e/ou renda familiar — troque `A-DEFINIR` pelo recorte real assim que definir (ex. `PROSPECCAO_DEMOGRAFICO-35-54-DECISOR`) |
 
 **Anúncio de vídeo** — `[GRUPO]_[FORMATO]_[TEMA]_[VERSAO]`:
 ```
-PROSPECCAO_ENGENHEIRO-ESPECIFICADOR_INSTREAM-SKIP_DOR-TECNICA_V1
-PROSPECCAO_CONSTRUTORA-INCORPORADORA_INSTREAM-SKIP_PRAZO-ENTREGA_V1
-PROSPECCAO_ARQUITETO-PROJETISTA_INFEED_CASE-DE-OBRA_V1
-REMARKETING_VISITANTE-SITE_BUMPER_CHAMADA-ORCAMENTO_V1
+PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO_INSTREAM-SKIP_DOR-TECNICA_V1
+PROSPECCAO_PUBLICO-PERSONALIZADO_INSTREAM-SKIP_DOR-TECNICA_V1
+PROSPECCAO_PALAVRA-CHAVE_INFEED_DOR-TECNICA_V1
+PROSPECCAO_DEMOGRAFICO-A-DEFINIR_BUMPER_DOR-TECNICA_V1
 ```
+> Como é o mesmo vídeo/oferta rodando em 4 métodos de segmentação diferentes, o `TEMA` do anúncio pode ficar igual entre os grupos — o que muda é só o `GRUPO` (a forma de encontrar a audiência). Se cada grupo tiver um corte de vídeo diferente, ajuste o `TEMA` também.
 
-Regras específicas de vídeo:
+Regras específicas deste teste:
 
-- **Um público = um grupo = uma mensagem.** O gancho dos primeiros 5 segundos deve mudar por público (dor técnica para engenheiro ≠ prazo/preço para construtora ≠ prova de obra para arquiteto).
-- Nunca colocar os 4 públicos no mesmo grupo "para simplificar" — perde-se o controle de CPV/CPL e de frequência por segmento, e a leitura de qual público converte melhor.
-- Definir **frequency cap** por grupo (evita saturar o mesmo lead com o mesmo vídeo) e excluir convertidos do remarketing.
+- **Não misture os 4 métodos no mesmo grupo.** Cada um usa um mecanismo de leilão/alcance diferente — juntar tudo impede saber se colocação, público personalizado, palavra-chave ou demografia é o que traz o CPL mais barato.
+- Mantenha o **mesmo orçamento inicial** nos 4 grupos por pelo menos 1–2 semanas antes de realocar verba — senão o teste fica viciado (o grupo com mais budget sempre "ganha" por volume, não por eficiência).
+- No grupo de **Demografia**, depois de preencher o recorte real, documente na planilha mestre por que aquele recorte foi escolhido (ex. idade típica de decisor de compra B2B).
+- Definir **frequency cap** por grupo e excluir convertidos via lista de remarketing, para não desperdiçar impressão em quem já converteu.
 - Se o objetivo for geração de leads (não só views), usar **Video Action Campaign** com CTA e formulário de lead, mantendo a mesma nomenclatura de campanha/grupo/anúncio acima.
-- Aplica-se o mesmo racional para "impulsionar vídeo" no Meta Ads: campanha = `EME_LEADS_META-VIDEO_INSTITUCIONAL_BR_PT_V1`, e cada um dos 4 públicos vira um **conjunto de anúncios** (equivalente ao grupo de anúncios) com o mesmo nome de público da tabela acima.
+- Depois de 2–4 semanas, compare CPL/qualidade de lead entre os 4 grupos e realoque orçamento para o(s) método(s) que performam melhor — é esse o objetivo do teste.
 
 ## 8. Regras de governança
 
