@@ -111,14 +111,55 @@ ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL_RSA_ENTREGA-RAPIDA_V1
 ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL_RSA_CERTIFICACAO-TECNICA_V1
 ```
 
-## 7. Regras de governança
+## 7. Exemplo aplicado: Impulsionamento de Vídeo — 4 Grupos de Anúncios por Público
+
+Campanha de vídeo (YouTube Ads/Google Ads) tem Grupo de Anúncios de verdade — diferente do PMax — então aqui a segmentação acontece dentro da campanha, um grupo por público.
+
+**Campanha** (mesmo padrão da seção 3, `TIPO` = `VIDEO`):
+```
+EME_LEADS_VIDEO_INSTITUCIONAL_BR_PT_V1
+```
+> Troque `INSTITUCIONAL` pelo tema real do vídeo se for específico de produto (ex. `EPS-INDUSTRIAL`, `PAINEL-EPS`).
+
+**Grupo de Anúncios** — `[FUNIL]_[PUBLICO]`, um público por grupo, nunca um grupo "GERAL":
+```
+PROSPECCAO_ENGENHEIRO-ESPECIFICADOR
+PROSPECCAO_CONSTRUTORA-INCORPORADORA
+PROSPECCAO_ARQUITETO-PROJETISTA
+REMARKETING_VISITANTE-SITE
+```
+
+| Grupo | Tipo de público | Sinal de segmentação sugerido |
+|---|---|---|
+| `PROSPECCAO_ENGENHEIRO-ESPECIFICADOR` | Prospecção | Públicos de intenção personalizada (buscas técnicas), in-market de construção/materiais |
+| `PROSPECCAO_CONSTRUTORA-INCORPORADORA` | Prospecção | Públicos por afinidade/setor, lista de empresas (customer match B2B) |
+| `PROSPECCAO_ARQUITETO-PROJETISTA` | Prospecção | Públicos de intenção personalizada + similar a leads convertidos |
+| `REMARKETING_VISITANTE-SITE` | Remarketing | Lista de remarketing do site (últimos 30/90 dias), excluindo convertidos |
+
+**Anúncio de vídeo** — `[GRUPO]_[FORMATO]_[TEMA]_[VERSAO]`:
+```
+PROSPECCAO_ENGENHEIRO-ESPECIFICADOR_INSTREAM-SKIP_DOR-TECNICA_V1
+PROSPECCAO_CONSTRUTORA-INCORPORADORA_INSTREAM-SKIP_PRAZO-ENTREGA_V1
+PROSPECCAO_ARQUITETO-PROJETISTA_INFEED_CASE-DE-OBRA_V1
+REMARKETING_VISITANTE-SITE_BUMPER_CHAMADA-ORCAMENTO_V1
+```
+
+Regras específicas de vídeo:
+
+- **Um público = um grupo = uma mensagem.** O gancho dos primeiros 5 segundos deve mudar por público (dor técnica para engenheiro ≠ prazo/preço para construtora ≠ prova de obra para arquiteto).
+- Nunca colocar os 4 públicos no mesmo grupo "para simplificar" — perde-se o controle de CPV/CPL e de frequência por segmento, e a leitura de qual público converte melhor.
+- Definir **frequency cap** por grupo (evita saturar o mesmo lead com o mesmo vídeo) e excluir convertidos do remarketing.
+- Se o objetivo for geração de leads (não só views), usar **Video Action Campaign** com CTA e formulário de lead, mantendo a mesma nomenclatura de campanha/grupo/anúncio acima.
+- Aplica-se o mesmo racional para "impulsionar vídeo" no Meta Ads: campanha = `EME_LEADS_META-VIDEO_INSTITUCIONAL_BR_PT_V1`, e cada um dos 4 públicos vira um **conjunto de anúncios** (equivalente ao grupo de anúncios) com o mesmo nome de público da tabela acima.
+
+## 8. Regras de governança
 
 - Padronizar a taxonomia em uma **planilha mestre** antes de criar qualquer campanha nova — ninguém cria campanha "no olho".
 - **Nunca reaproveitar** o nome de uma campanha pausada; nova estrutura = nova versão (`V2`, `V3`).
 - Nome de campanha com até ~60 caracteres visíveis (o limite técnico do Google Ads é maior, mas nomes longos quebram a leitura em relatório e Looker Studio).
 - Auditoria mensal de aderência à taxonomia (checklist rápido: campo por campo, campanha por campanha).
 
-## 8. Plano de ação
+## 9. Plano de ação
 
 **Imediato (0–7 dias)**
 - Documentar a taxonomia acima na planilha mestre da conta.
