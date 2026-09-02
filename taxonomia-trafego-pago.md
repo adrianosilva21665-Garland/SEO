@@ -145,6 +145,20 @@ PROSPECCAO_DEMOGRAFICO-A-DEFINIR_BUMPER_DOR-TECNICA_V1
 ```
 > Como é o mesmo vídeo/oferta rodando em 4 métodos de segmentação diferentes, o `TEMA` do anúncio pode ficar igual entre os grupos — o que muda é só o `GRUPO` (a forma de encontrar a audiência). Se cada grupo tiver um corte de vídeo diferente, ajuste o `TEMA` também.
 
+**Quando é o mesmo anúncio servindo em vários formatos ao mesmo tempo** (caso mais comum: você sobe 1 vídeo numa campanha de Vídeo e o Google serve automaticamente como in-stream pulável + in-feed + shorts, sem você criar 3 anúncios separados), **não crie um `FORMATO` por anúncio** — é um único anúncio, então o token de formato sai do nome:
+
+`[GRUPO]_[TEMA]_[VERSAO]`
+
+Exemplo real (produto = EPS para núcleo de telhas, vídeo gravado no escritório, rodando in-stream pulável + in-feed + shorts de uma vez só):
+```
+PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
+PROSPECCAO_PUBLICO-PERSONALIZADO_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
+PROSPECCAO_PALAVRA-CHAVE_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
+PROSPECCAO_DEMOGRAFICO-A-DEFINIR_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
+```
+
+Regra: **só usa `[FORMATO]` no nome quando existir mais de uma peça/anúncio diferente por grupo** (ex. você testar um corte in-stream contra um corte shorts como criativos distintos). Se é um anúncio único cobrindo vários formatos automaticamente, o formato não entra no nome — quem já sabe que aquela campanha serve nos 3 formatos não precisa repetir isso no nome de cada anúncio.
+
 Regras específicas deste teste:
 
 - **Não misture os 4 métodos no mesmo grupo.** Cada um usa um mecanismo de leilão/alcance diferente — juntar tudo impede saber se colocação, público personalizado, palavra-chave ou demografia é o que traz o CPL mais barato.
