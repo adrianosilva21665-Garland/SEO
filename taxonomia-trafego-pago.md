@@ -20,7 +20,7 @@ Problemas identificados:
 - **Ordem fixa e delimitador único e previsível** — facilita filtro, pivot table e regex.
 - **A nomenclatura reflete a hierarquia real da conta:** Conta → Campanha → Grupo de Anúncios/Grupo de Recursos → Anúncio/Recurso.
 - **Colchetes separam os campos, hífen une palavras dentro do mesmo campo.** Formato: `[CAMPO-1] [CAMPO-2] [CAMPO-3]`. Nunca usar `_` nem `|` — colchete é o único delimitador entre campos, em todos os níveis (campanha, grupo, anúncio).
-- **`PLATAFORMA` é um campo obrigatório e nunca abreviado** (`GOOGLE`, `META`, `LINKEDIN`, ...) — é o primeiro campo depois da marca, exatamente para que qualquer pessoa do time identifique a origem da campanha sem precisar saber o que é `PMX` ou `CAD`.
+- **`PLATAFORMA` é um campo obrigatório e nunca abreviado** (`GOOGLE`, `META`, `LINKEDIN`, ...) — é o primeiro campo depois da marca, exatamente para que qualquer pessoa do time identifique a origem da campanha sem precisar saber o que é `PMX` ou `LEAD`.
 - **Objetivo e tipo de campanha são abreviados** seguindo o Glossário oficial (seção 3) — evita nomes gigantes sem perder padronização.
 - **PMax não tem "Grupo de Anúncios" nem "Anúncio"** no sentido tradicional — tem **Grupo de Recursos (Asset Group)** e **Recursos (Assets: headlines, descrições, imagens, vídeos)**. A taxonomia abaixo respeita essa diferença em vez de forçar uma estrutura de Search dentro do PMax.
 - **Grupo carrega `[NUMERACAO] [PRODUTO] [PUBLICO]`; anúncio carrega `[NUMERACAO] [NOME-CRIATIVO]`.** O anúncio não repete o prefixo do grupo — a hierarquia da própria plataforma (e a coluna "Grupo" no relatório) já faz essa ligação. `NUMERACAO` aqui é só ordem/contagem dentro do nível — não confundir com `VERSAO`, que controla iteração/teste no nível de campanha.
@@ -41,13 +41,12 @@ Problemas identificados:
 
 | Sigla | Significado | Plataforma |
 |---|---|---|
-| `LEAD` | Leads | Google |
+| `LEAD` | Leads (no Meta em PT-BR a interface chama esse objetivo de "Cadastros" — é o mesmo objetivo, mesma sigla) | Google e Meta |
 | `VND` | Vendas | Google e Meta |
 | `BRD` | Branding | Google |
 | `RCH` | Reconhecimento | Meta |
 | `TRF` | Tráfego | Meta |
 | `ENG` | Engajamento | Meta |
-| `CAD` | Cadastros (= geração de leads no Meta) | Meta |
 | `PAP` | Promoção de App | Meta |
 
 ### Tipo de campanha (campo `TIPO`) — abreviado, só existe no Google Ads
@@ -79,7 +78,7 @@ No Meta, o objetivo já define o tipo de campanha (não existe um segundo eixo c
 
 ### Canal de conversão (campo `CANAL`) — usado no Conjunto de Anúncios do Meta
 
-No Meta, "local de conversão" (WhatsApp, formulário, site, ligação) é escolhido **no Conjunto de Anúncios**, não na campanha — por isso é campo próprio, separado do público, nos objetivos que oferecem mais de um destino (`ENG`, `CAD`, `TRF`, `VND`). Só entra no nome quando a campanha tem mais de uma opção de canal para escolher; se só existe um canal possível, omitir.
+No Meta, "local de conversão" (WhatsApp, formulário, site, ligação) é escolhido **no Conjunto de Anúncios**, não na campanha — por isso é campo próprio, separado do público, nos objetivos que oferecem mais de um destino (`ENG`, `LEAD`, `TRF`, `VND`). Só entra no nome quando a campanha tem mais de uma opção de canal para escolher; se só existe um canal possível, omitir.
 
 | Sigla | Significado |
 |---|---|
@@ -270,9 +269,9 @@ Anúncio:   [01] [FALE-CONOSCO]
 ```
 > O canal (`WHATSAPP`) mora no Conjunto, não na campanha — é lá que o Meta deixa escolher o destino da conversa.
 
-**CAD — Cadastros** (mesmo público, testando 2 canais de conversão em paralelo)
+**LEAD — Leads** (chamado de "Cadastros" na interface PT-BR do Meta; mesmo público, testando 2 canais de conversão em paralelo)
 ```
-Campanha:  [EME] [META] [CAD] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+Campanha:  [EME] [META] [LEAD] [EPS-INDUSTRIAL] [BR] [PT] [V1]
 Conjunto:  [01] [EPS-INDUSTRIAL] [VISITANTES-SITE-90D] [FORMULARIO-INSTANTANEO]
 Conjunto:  [02] [EPS-INDUSTRIAL] [VISITANTES-SITE-90D] [WHATSAPP]
 Anúncio (grupo 01): [01] [ORCAMENTO]
@@ -296,8 +295,8 @@ Anúncio:   [01] [DEMO-APP]
 
 Regras específicas do Meta:
 
-- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO` é sempre uma das siglas da seção 3 — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `[EME] [META] [CAD-EPS] ...`).
-- **Cadastros ≠ Vendas ≠ Tráfego** mesmo que todos "gerem lead" na prática — cada objetivo otimiza o leilão para um evento diferente; escolher o objetivo errado (ex. Tráfego para gerar lead) faz o algoritmo otimizar para clique barato, não para conversão.
+- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO` é sempre uma das siglas da seção 3 — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `[EME] [META] [LEAD-EPS] ...`).
+- **Leads ≠ Vendas ≠ Tráfego** mesmo que todos "gerem lead" na prática — cada objetivo otimiza o leilão para um evento diferente; escolher o objetivo errado (ex. Tráfego para gerar lead) faz o algoritmo otimizar para clique barato, não para conversão.
 - Público no Conjunto de Anúncios segue a mesma lógica da seção 5/8: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
 - **Público e canal são eixos diferentes, nunca junte os dois num "conjunto genérico".** Testar 2 canais (ex. WhatsApp vs. formulário) para o mesmo público é 2 conjuntos, cada um com o mesmo `PUBLICO` e um `CANAL` diferente — nunca 1 conjunto com os 2 canais ligados ao mesmo tempo, porque aí não dá pra saber qual canal converteu.
 - Exclua sempre o público de remarketing/convertidos dos conjuntos de prospecção, para não pagar duas vezes pelo mesmo lead.
