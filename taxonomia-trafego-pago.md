@@ -168,14 +168,81 @@ Regras específicas deste teste:
 - Se o objetivo for geração de leads (não só views), usar **Video Action Campaign** com CTA e formulário de lead, mantendo a mesma nomenclatura de campanha/grupo/anúncio acima.
 - Depois de 2–4 semanas, compare CPL/qualidade de lead entre os 4 grupos e realoque orçamento para o(s) método(s) que performam melhor — é esse o objetivo do teste.
 
-## 8. Regras de governança
+## 8. Meta Ads (Facebook/Instagram) — Estrutura por Tipo de Campanha
+
+A hierarquia do Meta é **Campanha (objetivo) → Conjunto de Anúncios (público/segmentação/orçamento) → Anúncio (criativo)**. Desde a reestruturação ODAX, o Meta só permite 6 objetivos de campanha — a nomenclatura usa exatamente esses 6 no campo `OBJETIVO`, em vez de "GERAL":
+
+`RECONHECIMENTO`, `TRAFEGO`, `ENGAJAMENTO`, `CADASTROS`, `VENDAS`, `PROMOCAO-APP`
+
+**Campanha** (mesmo padrão da seção 3, `TIPO` = `META`):
+```
+[MARCA]_[OBJETIVO-ODAX]_META_[SEGMENTO-PRODUTO]_[GEO]_[IDIOMA]_[VERSAO]
+```
+
+**Conjunto de Anúncios** — `[FUNIL-OU-TIPO-SEGMENTACAO]_[PUBLICO]`, mesma regra: 1 público/segmentação por conjunto, nunca "GERAL".
+
+**Anúncio** — `[CONJUNTO]_[FORMATO]_[TEMA]_[VERSAO]`, onde `FORMATO` é `IMAGEM-UNICA`, `CARROSSEL`, `VIDEO`, `COLECAO`, `STORIES` ou `REELS` — só entra no nome quando distingue peças diferentes, mesma lógica da seção 7.
+
+Um exemplo por objetivo:
+
+**RECONHECIMENTO** (alcance/topo de funil, marca)
+```
+Campanha:  EME_RECONHECIMENTO_META_INSTITUCIONAL_BR_PT_V1
+Conjunto:  ALCANCE-AMPLO_INTERESSE-CONSTRUCAO-CIVIL
+Anúncio:   ALCANCE-AMPLO_INTERESSE-CONSTRUCAO-CIVIL_VIDEO_MARCA-EME_V1
+```
+
+**TRAFEGO** (levar para site/blog técnico)
+```
+Campanha:  EME_TRAFEGO_META_BLOG-TECNICO_BR_PT_V1
+Conjunto:  PROSPECCAO_INTERESSE-ENGENHARIA-CIVIL
+Anúncio:   PROSPECCAO_INTERESSE-ENGENHARIA-CIVIL_CARROSSEL_ARTIGOS-TECNICOS_V1
+```
+
+**ENGAJAMENTO** (mensagens no WhatsApp/Direct, vídeo views, interação)
+```
+Campanha:  EME_ENGAJAMENTO_META_MENSAGENS-WHATSAPP_BR_PT_V1
+Conjunto:  LOOKALIKE-1PORCENTO_LEADS-CONVERTIDOS
+Anúncio:   LOOKALIKE-1PORCENTO_LEADS-CONVERTIDOS_IMAGEM-UNICA_FALE-CONOSCO_V1
+```
+
+**CADASTROS** (geração de leads — formulário instantâneo ou site)
+```
+Campanha:  EME_CADASTROS_META_EPS-INDUSTRIAL_BR_PT_V1
+Conjunto:  PUBLICO-PERSONALIZADO_VISITANTES-SITE-90D
+Anúncio:   PUBLICO-PERSONALIZADO_VISITANTES-SITE-90D_FORMULARIO-INSTANTANEO_ORCAMENTO_V1
+```
+
+**VENDAS** (conversão/catálogo)
+```
+Campanha:  EME_VENDAS_META_CATALOGO-PRODUTOS_BR_PT_V1
+Conjunto:  REMARKETING_CARRINHO-ABANDONADO
+Anúncio:   REMARKETING_CARRINHO-ABANDONADO_COLECAO_CATALOGO-DINAMICO_V1
+```
+
+**PROMOCAO-APP** (só se houver app — não se aplica hoje a esse negócio, template para o futuro)
+```
+Campanha:  EME_PROMOCAO-APP_META_APP-ORCAMENTO_BR_PT_V1
+Conjunto:  LOOKALIKE_USUARIOS-APP-ATIVOS
+Anúncio:   LOOKALIKE_USUARIOS-APP-ATIVOS_VIDEO_DEMO-APP_V1
+```
+
+Regras específicas do Meta:
+
+- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO-ODAX` é sempre um dos 6 valores acima — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `EME_LEADS-EPS_META...`).
+- **Cadastros ≠ Vendas ≠ Tráfego** mesmo que todos "gerem lead" na prática — cada objetivo otimiza o leilão para um evento diferente; escolher o objetivo errado (ex. Tráfego para gerar lead) faz o algoritmo otimizar para clique barato, não para conversão.
+- Public no Conjunto de Anúncios segue a mesma lógica da seção 4/7: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
+- Exclua sempre o público de remarketing/convertidos dos conjuntos de prospecção, para não pagar duas vezes pelo mesmo lead.
+- Ative a **Vantagem+ (Advantage+ placements/audience)** apenas depois de já ter validado manualmente qual público/segmento converte melhor — usar Vantagem+ direto no público "GERAL" reproduz o mesmo problema de diluição de sinal do PMax (seção 1).
+
+## 9. Regras de governança
 
 - Padronizar a taxonomia em uma **planilha mestre** antes de criar qualquer campanha nova — ninguém cria campanha "no olho".
 - **Nunca reaproveitar** o nome de uma campanha pausada; nova estrutura = nova versão (`V2`, `V3`).
 - Nome de campanha com até ~60 caracteres visíveis (o limite técnico do Google Ads é maior, mas nomes longos quebram a leitura em relatório e Looker Studio).
 - Auditoria mensal de aderência à taxonomia (checklist rápido: campo por campo, campanha por campanha).
 
-## 9. Plano de ação
+## 10. Plano de ação
 
 **Imediato (0–7 dias)**
 - Documentar a taxonomia acima na planilha mestre da conta.
