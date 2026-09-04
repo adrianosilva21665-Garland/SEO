@@ -41,7 +41,7 @@ Problemas identificados:
 
 | Sigla | Significado | Plataforma |
 |---|---|---|
-| `LED` | Leads | Google |
+| `LEAD` | Leads | Google |
 | `VND` | Vendas | Google e Meta |
 | `BRD` | Branding | Google |
 | `RCH` | Reconhecimento | Meta |
@@ -100,7 +100,7 @@ No Meta, "local de conversão" (WhatsApp, formulário, site, ligação) é escol
 |---|---|---|
 | MARCA | Unidade de negócio/marca | `EME` |
 | PLATAFORMA | Origem da campanha, sempre por extenso | `GOOGLE` |
-| OBJETIVO | Meta de conversão (sigla — seção 3) | `LED`, `VND`, `BRD` |
+| OBJETIVO | Meta de conversão (sigla — seção 3) | `LEAD`, `VND`, `BRD` |
 | TIPO | Tipo de campanha no Google (sigla — seção 3) | `PMX`, `SRC`, `DSP`, `VID` |
 | SEGMENTO-PRODUTO | Linha de produto/ICP — nunca "GERAL" | `EPS-INDUSTRIAL`, `PAINEL-EPS`, `DRYWALL`, `ISOLAMENTO-TERMICO` |
 | GEO | Escopo geográfico | `BR`, `SP`, `SUDESTE` |
@@ -114,10 +114,10 @@ No Meta, "local de conversão" (WhatsApp, formulário, site, ligação) é escol
 
 **Depois (plataforma identificada, segmentado por linha de produto):**
 ```
-[EME] [GOOGLE] [LED] [PMX] [EPS-INDUSTRIAL] [BR] [PT] [V1]
-[EME] [GOOGLE] [LED] [PMX] [PAINEL-EPS] [BR] [PT] [V1]
-[EME] [GOOGLE] [LED] [PMX] [DRYWALL] [BR] [PT] [V1]
-[EME] [GOOGLE] [LED] [PMX] [ISOLAMENTO-TERMICO] [BR] [PT] [V1]
+[EME] [GOOGLE] [LEAD] [PMX] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LEAD] [PMX] [PAINEL-EPS] [BR] [PT] [V1]
+[EME] [GOOGLE] [LEAD] [PMX] [DRYWALL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LEAD] [PMX] [ISOLAMENTO-TERMICO] [BR] [PT] [V1]
 ```
 
 Cada campanha agora pode ter público-alvo, orçamento, feed de sinais de audiência e metas de CPA próprios — o que é exatamente o que o PMax precisa para aprender rápido e bem.
@@ -134,7 +134,7 @@ Cada campanha agora pode ter público-alvo, orçamento, feed de sinais de audiê
 | PRODUTO | Linha de produto que o grupo atende — normalmente repete o `SEGMENTO-PRODUTO` da campanha, dá pra identificar o grupo sem abrir a campanha |
 | PUBLICO | Audiência do grupo. A etapa de funil vai dentro do próprio valor (sufixo `-PROSPECCAO` ou `-REMARKETING`), não é campo separado |
 
-Exemplo dentro de `[EME] [GOOGLE] [LED] [PMX] [EPS-INDUSTRIAL] [BR] [PT] [V1]`:
+Exemplo dentro de `[EME] [GOOGLE] [LEAD] [PMX] [EPS-INDUSTRIAL] [BR] [PT] [V1]`:
 
 ```
 [01] [EPS-INDUSTRIAL] [ENGENHEIRO-PROSPECCAO]
@@ -176,7 +176,7 @@ Isso permite rastrear, na planilha mestre de criativos, qual ângulo de copy/ima
 
 Campanha:
 ```
-[EME] [GOOGLE] [LED] [SRC] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LEAD] [SRC] [EPS-INDUSTRIAL] [BR] [PT] [V1]
 ```
 
 Grupo de Anúncios — `[NUMERACAO] [PRODUTO] [PUBLICO]`, aqui `PUBLICO` é a intenção/tema de palavra-chave (não por "geral"):
@@ -198,7 +198,7 @@ Campanha de vídeo (YouTube Ads/Google Ads) tem Grupo de Anúncios de verdade �
 
 **Campanha** (mesmo padrão da seção 4, `TIPO` = `VID`):
 ```
-[EME] [GOOGLE] [LED] [VID] [INSTITUCIONAL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LEAD] [VID] [INSTITUCIONAL] [BR] [PT] [V1]
 ```
 > Troque `INSTITUCIONAL` pelo tema real do vídeo se for específico de produto (ex. `EPS-INDUSTRIAL`, `PAINEL-EPS`).
 
