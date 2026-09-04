@@ -12,6 +12,7 @@ Problemas identificados:
 4. **Sem controle de versão/teste.** Não dá para saber se é a primeira estrutura, um V2 pós-otimização, ou um teste A/B, e o Looker Studio/Data Studio não consegue separar historicamente.
 5. **Separadores inconsistentes** (colchete + espaço + pipe). Dificulta parsing automático em scripts, filtros de regex e regras de automação (Ads Scripts, Editor, relatórios).
 6. **Não escala para Grupo de Anúncios/Recursos e Anúncio.** A convenção para até aqui, então cada pessoa nomeia os níveis abaixo do seu jeito — isso já deve estar acontecendo na conta.
+7. **Não identifica a plataforma de origem.** `PMAX` só é reconhecível como Google Ads por quem já sabe o jargão — alguém do time olhando o relatório precisa identificar Google vs. Meta vs. LinkedIn sem precisar decorar nomes de produto.
 
 ## 2. Princípios da nova taxonomia
 
@@ -19,19 +20,74 @@ Problemas identificados:
 - **Ordem fixa e delimitador único e previsível** — facilita filtro, pivot table e regex.
 - **A nomenclatura reflete a hierarquia real da conta:** Conta → Campanha → Grupo de Anúncios/Grupo de Recursos → Anúncio/Recurso.
 - **Colchetes separam os campos, hífen une palavras dentro do mesmo campo.** Formato: `[CAMPO-1] [CAMPO-2] [CAMPO-3]`. Nunca usar `_` nem `|` — colchete é o único delimitador entre campos, em todos os níveis (campanha, grupo, anúncio).
+- **`PLATAFORMA` é um campo obrigatório e nunca abreviado** (`GOOGLE`, `META`, `LINKEDIN`, ...) — é o primeiro campo depois da marca, exatamente para que qualquer pessoa do time identifique a origem da campanha sem precisar saber o que é `PMX` ou `CAD`.
+- **Objetivo e tipo de campanha são abreviados** seguindo o Glossário oficial (seção 3) — evita nomes gigantes sem perder padronização.
 - **PMax não tem "Grupo de Anúncios" nem "Anúncio"** no sentido tradicional — tem **Grupo de Recursos (Asset Group)** e **Recursos (Assets: headlines, descrições, imagens, vídeos)**. A taxonomia abaixo respeita essa diferença em vez de forçar uma estrutura de Search dentro do PMax.
 
-## 3. Estrutura de Campanha
+## 3. Glossário Oficial de Abreviações
+
+> Referência única para todo o time de marketing. Qualquer sigla nova (novo objetivo, novo tipo de campanha, nova plataforma) precisa ser adicionada aqui antes de virar campanha — sem sigla "inventada na hora".
+
+### Plataforma (campo `PLATAFORMA`) — sempre por extenso, nunca abreviar
+
+| Valor | Onde usar |
+|---|---|
+| `GOOGLE` | Google Ads (Search, PMax, Display, Vídeo/YouTube) |
+| `META` | Meta Ads (Facebook/Instagram) |
+| `LINKEDIN` | LinkedIn Ads |
+
+### Objetivo (campo `OBJETIVO`) — abreviado
+
+| Sigla | Significado | Plataforma |
+|---|---|---|
+| `LED` | Leads | Google |
+| `VND` | Vendas | Google e Meta |
+| `BRD` | Branding | Google |
+| `RCH` | Reconhecimento | Meta |
+| `TRF` | Tráfego | Meta |
+| `ENG` | Engajamento | Meta |
+| `CAD` | Cadastros (= geração de leads no Meta) | Meta |
+| `PAP` | Promoção de App | Meta |
+
+### Tipo de campanha (campo `TIPO`) — abreviado, só existe no Google Ads
+
+No Meta, o objetivo já define o tipo de campanha (não existe um segundo eixo como no Google) — por isso o campo `TIPO` **não aparece** em campanhas `META`.
+
+| Sigla | Significado |
+|---|---|
+| `PMX` | Performance Max |
+| `SRC` | Search |
+| `DSP` | Display |
+| `VID` | Vídeo (YouTube Ads) |
+
+### Formato de anúncio (campo `FORMATO`) — usado quando há mais de uma peça por grupo/conjunto
+
+| Sigla/valor | Significado |
+|---|---|
+| `RSA` | Responsive Search Ad (Search) |
+| `INSTREAM-SKIP` | In-stream pulável (Vídeo) |
+| `INFEED` | In-feed/Discovery (Vídeo) |
+| `BUMPER` | Bumper ad (Vídeo) |
+| `SHORTS` | Shorts (Vídeo) |
+| `IMAGEM-UNICA` | Imagem única (Meta) |
+| `CARROSSEL` | Carrossel (Meta) |
+| `VIDEO` | Vídeo (Meta) |
+| `COLECAO` | Coleção (Meta) |
+| `STORIES` | Stories (Meta) |
+| `REELS` | Reels (Meta) |
+
+## 4. Estrutura de Campanha (Google Ads)
 
 ```
-[MARCA] [OBJETIVO] [TIPO] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
+[MARCA] [PLATAFORMA] [OBJETIVO] [TIPO] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
 ```
 
 | Campo | Significado | Exemplo |
 |---|---|---|
 | MARCA | Unidade de negócio/marca | `EME` |
-| OBJETIVO | Meta de conversão | `LEADS`, `VENDAS`, `BRANDING` |
-| TIPO | Tipo/plataforma de campanha | `PMAX`, `SEARCH`, `DISPLAY`, `META`, `LINKEDIN` |
+| PLATAFORMA | Origem da campanha, sempre por extenso | `GOOGLE` |
+| OBJETIVO | Meta de conversão (sigla — seção 3) | `LED`, `VND`, `BRD` |
+| TIPO | Tipo de campanha no Google (sigla — seção 3) | `PMX`, `SRC`, `DSP`, `VID` |
 | SEGMENTO-PRODUTO | Linha de produto/ICP — nunca "GERAL" | `EPS-INDUSTRIAL`, `PAINEL-EPS`, `DRYWALL`, `ISOLAMENTO-TERMICO` |
 | GEO | Escopo geográfico | `BR`, `SP`, `SUDESTE` |
 | IDIOMA | Idioma do público | `PT` |
@@ -42,23 +98,23 @@ Problemas identificados:
 [EME] [LEADS] PMAX | GERAL
 ```
 
-**Depois (segmentado por linha de produto, sinal de público limpo):**
+**Depois (plataforma identificada, segmentado por linha de produto):**
 ```
-[EME] [LEADS] [PMAX] [EPS-INDUSTRIAL] [BR] [PT] [V1]
-[EME] [LEADS] [PMAX] [PAINEL-EPS] [BR] [PT] [V1]
-[EME] [LEADS] [PMAX] [DRYWALL] [BR] [PT] [V1]
-[EME] [LEADS] [PMAX] [ISOLAMENTO-TERMICO] [BR] [PT] [V1]
+[EME] [GOOGLE] [LED] [PMX] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LED] [PMX] [PAINEL-EPS] [BR] [PT] [V1]
+[EME] [GOOGLE] [LED] [PMX] [DRYWALL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LED] [PMX] [ISOLAMENTO-TERMICO] [BR] [PT] [V1]
 ```
 
 Cada campanha agora pode ter público-alvo, orçamento, feed de sinais de audiência e metas de CPA próprios — o que é exatamente o que o PMax precisa para aprender rápido e bem.
 
-## 4. Nível de Grupo de Recursos (equivalente ao Grupo de Anúncios no PMax)
+## 5. Nível de Grupo de Recursos (equivalente ao Grupo de Anúncios no PMax)
 
 ```
 [FUNIL] [PUBLICO] [PRODUTO-ESPECIFICO]
 ```
 
-Exemplo dentro de `[EME] [LEADS] [PMAX] [EPS-INDUSTRIAL] [BR] [PT] [V1]`:
+Exemplo dentro de `[EME] [GOOGLE] [LED] [PMX] [EPS-INDUSTRIAL] [BR] [PT] [V1]`:
 
 ```
 [PROSPECCAO] [ENGENHEIRO] [EPS-INDUSTRIAL]
@@ -73,7 +129,7 @@ Regras:
 - Separar sempre **prospecção** de **remarketing** — CPA-alvo, criativo e mensagem são diferentes (topo de funil = dor técnica/autoridade; remarketing = prova social/oferta).
 - Se o volume de conversões por grupo for baixo (<15/mês), consolidar públicos próximos em vez de fragmentar demais — PMax precisa de volume para sair do aprendizado.
 
-## 5. Nível de Recurso/Anúncio
+## 6. Nível de Recurso/Anúncio
 
 O PMax não permite nomear cada asset individualmente na interface, mas o controle interno (planilha de criativos, teste A/B, histórico) deve seguir a mesma sequência de colchetes do grupo, com mais campos no final:
 
@@ -91,11 +147,11 @@ Exemplos:
 
 Isso permite rastrear, na planilha mestre de criativos, qual ângulo de copy/imagem está performando por público — mesmo sem poder nomear o asset dentro do Google Ads.
 
-## 6. Se também houver Search/Display (estrutura complementar, mesma lógica)
+## 7. Se também houver Search/Display (estrutura complementar, mesma lógica)
 
 Campanha:
 ```
-[EME] [LEADS] [SEARCH] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LED] [SRC] [EPS-INDUSTRIAL] [BR] [PT] [V1]
 ```
 
 Grupo de Anúncios (por intenção/tema de palavra-chave, não por "geral"):
@@ -111,13 +167,13 @@ Anúncio (RSA):
 [ALTA-INTENCAO] [COMPRA-EPS-INDUSTRIAL] [RSA] [CERTIFICACAO-TECNICA] [V1]
 ```
 
-## 7. Exemplo aplicado: Impulsionamento de Vídeo — 4 Grupos de Anúncios por Tipo de Segmentação
+## 8. Exemplo aplicado: Impulsionamento de Vídeo — 4 Grupos de Anúncios por Tipo de Segmentação
 
 Campanha de vídeo (YouTube Ads/Google Ads) tem Grupo de Anúncios de verdade — diferente do PMax — então aqui a segmentação acontece dentro da campanha. Neste caso os 4 grupos **não são personas diferentes, são 4 métodos de segmentação diferentes testados em paralelo** (colocação, público personalizado, palavra-chave, demografia) para o mesmo vídeo/oferta. A regra é a mesma: **1 método de segmentação = 1 grupo**, nunca misturar dois métodos no mesmo grupo — se misturar, o relatório não mostra qual forma de achar audiência trouxe o lead mais barato.
 
-**Campanha** (mesmo padrão da seção 3, `TIPO` = `VIDEO`):
+**Campanha** (mesmo padrão da seção 4, `TIPO` = `VID`):
 ```
-[EME] [LEADS] [VIDEO] [INSTITUCIONAL] [BR] [PT] [V1]
+[EME] [GOOGLE] [LED] [VID] [INSTITUCIONAL] [BR] [PT] [V1]
 ```
 > Troque `INSTITUCIONAL` pelo tema real do vídeo se for específico de produto (ex. `EPS-INDUSTRIAL`, `PAINEL-EPS`).
 
@@ -168,91 +224,89 @@ Regras específicas deste teste:
 - Se o objetivo for geração de leads (não só views), usar **Video Action Campaign** com CTA e formulário de lead, mantendo a mesma nomenclatura de campanha/grupo/anúncio acima.
 - Depois de 2–4 semanas, compare CPL/qualidade de lead entre os 4 grupos e realoque orçamento para o(s) método(s) que performam melhor — é esse o objetivo do teste.
 
-## 8. Meta Ads (Facebook/Instagram) — Estrutura por Tipo de Campanha
+## 9. Meta Ads (Facebook/Instagram) — Estrutura por Tipo de Campanha
 
-A hierarquia do Meta é **Campanha (objetivo) → Conjunto de Anúncios (público/segmentação/orçamento) → Anúncio (criativo)**. Desde a reestruturação ODAX, o Meta só permite 6 objetivos de campanha — a nomenclatura usa exatamente esses 6 no campo `OBJETIVO`, em vez de "GERAL":
+A hierarquia do Meta é **Campanha (objetivo) → Conjunto de Anúncios (público/segmentação/orçamento) → Anúncio (criativo)**. Desde a reestruturação ODAX, o Meta só permite 6 objetivos de campanha, e o objetivo já define o tipo de campanha — por isso **não existe campo `TIPO` separado no Meta**, diferente do Google:
 
-`RECONHECIMENTO`, `TRAFEGO`, `ENGAJAMENTO`, `CADASTROS`, `VENDAS`, `PROMOCAO-APP`
-
-**Campanha** (mesmo padrão da seção 3, `TIPO` = `META`):
 ```
-[MARCA] [OBJETIVO-ODAX] [META] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
+[MARCA] [PLATAFORMA] [OBJETIVO] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
 ```
 
 **Conjunto de Anúncios** — `[FUNIL-OU-TIPO-SEGMENTACAO] [PUBLICO]`, mesma regra: 1 público/segmentação por conjunto, nunca "GERAL".
 
-**Anúncio** — `[CONJUNTO] [FORMATO] [TEMA] [VERSAO]`, onde `FORMATO` é `IMAGEM-UNICA`, `CARROSSEL`, `VIDEO`, `COLECAO`, `STORIES` ou `REELS` — só entra no nome quando distingue peças diferentes, mesma lógica da seção 7.
+**Anúncio** — `[CONJUNTO] [FORMATO] [TEMA] [VERSAO]` — `FORMATO` (seção 3) só entra no nome quando distingue peças diferentes, mesma lógica da seção 8.
 
 Um exemplo por objetivo:
 
-**RECONHECIMENTO** (alcance/topo de funil, marca)
+**RCH — Reconhecimento** (alcance/topo de funil, marca)
 ```
-Campanha:  [EME] [RECONHECIMENTO] [META] [INSTITUCIONAL] [BR] [PT] [V1]
+Campanha:  [EME] [META] [RCH] [INSTITUCIONAL] [BR] [PT] [V1]
 Conjunto:  [ALCANCE-AMPLO] [INTERESSE-CONSTRUCAO-CIVIL]
 Anúncio:   [ALCANCE-AMPLO] [INTERESSE-CONSTRUCAO-CIVIL] [VIDEO] [MARCA-EME] [V1]
 ```
 
-**TRAFEGO** (levar para site/blog técnico)
+**TRF — Tráfego** (levar para site/blog técnico)
 ```
-Campanha:  [EME] [TRAFEGO] [META] [BLOG-TECNICO] [BR] [PT] [V1]
+Campanha:  [EME] [META] [TRF] [BLOG-TECNICO] [BR] [PT] [V1]
 Conjunto:  [PROSPECCAO] [INTERESSE-ENGENHARIA-CIVIL]
 Anúncio:   [PROSPECCAO] [INTERESSE-ENGENHARIA-CIVIL] [CARROSSEL] [ARTIGOS-TECNICOS] [V1]
 ```
 
-**ENGAJAMENTO** (mensagens no WhatsApp/Direct, vídeo views, interação)
+**ENG — Engajamento** (mensagens no WhatsApp/Direct, vídeo views, interação)
 ```
-Campanha:  [EME] [ENGAJAMENTO] [META] [MENSAGENS-WHATSAPP] [BR] [PT] [V1]
+Campanha:  [EME] [META] [ENG] [MENSAGENS-WHATSAPP] [BR] [PT] [V1]
 Conjunto:  [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS]
 Anúncio:   [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS] [IMAGEM-UNICA] [FALE-CONOSCO] [V1]
 ```
 
-**CADASTROS** (geração de leads — formulário instantâneo ou site)
+**CAD — Cadastros** (geração de leads — formulário instantâneo ou site)
 ```
-Campanha:  [EME] [CADASTROS] [META] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+Campanha:  [EME] [META] [CAD] [EPS-INDUSTRIAL] [BR] [PT] [V1]
 Conjunto:  [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D]
 Anúncio:   [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [FORMULARIO-INSTANTANEO] [ORCAMENTO] [V1]
 ```
 
-**VENDAS** (conversão/catálogo)
+**VND — Vendas** (conversão/catálogo)
 ```
-Campanha:  [EME] [VENDAS] [META] [CATALOGO-PRODUTOS] [BR] [PT] [V1]
+Campanha:  [EME] [META] [VND] [CATALOGO-PRODUTOS] [BR] [PT] [V1]
 Conjunto:  [REMARKETING] [CARRINHO-ABANDONADO]
 Anúncio:   [REMARKETING] [CARRINHO-ABANDONADO] [COLECAO] [CATALOGO-DINAMICO] [V1]
 ```
 
-**PROMOCAO-APP** (só se houver app — não se aplica hoje a esse negócio, template para o futuro)
+**PAP — Promoção de App** (só se houver app — não se aplica hoje a esse negócio, template para o futuro)
 ```
-Campanha:  [EME] [PROMOCAO-APP] [META] [APP-ORCAMENTO] [BR] [PT] [V1]
+Campanha:  [EME] [META] [PAP] [APP-ORCAMENTO] [BR] [PT] [V1]
 Conjunto:  [LOOKALIKE] [USUARIOS-APP-ATIVOS]
 Anúncio:   [LOOKALIKE] [USUARIOS-APP-ATIVOS] [VIDEO] [DEMO-APP] [V1]
 ```
 
 Regras específicas do Meta:
 
-- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO-ODAX` é sempre um dos 6 valores acima — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `[EME] [LEADS-EPS] [META] ...`).
+- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO` é sempre uma das siglas da seção 3 — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `[EME] [META] [CAD-EPS] ...`).
 - **Cadastros ≠ Vendas ≠ Tráfego** mesmo que todos "gerem lead" na prática — cada objetivo otimiza o leilão para um evento diferente; escolher o objetivo errado (ex. Tráfego para gerar lead) faz o algoritmo otimizar para clique barato, não para conversão.
-- Público no Conjunto de Anúncios segue a mesma lógica da seção 4/7: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
+- Público no Conjunto de Anúncios segue a mesma lógica da seção 5/8: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
 - Exclua sempre o público de remarketing/convertidos dos conjuntos de prospecção, para não pagar duas vezes pelo mesmo lead.
 - Ative a **Vantagem+ (Advantage+ placements/audience)** apenas depois de já ter validado manualmente qual público/segmento converte melhor — usar Vantagem+ direto no público "GERAL" reproduz o mesmo problema de diluição de sinal do PMax (seção 1).
 
-## 9. Regras de governança
+## 10. Regras de governança
 
-- Padronizar a taxonomia em uma **planilha mestre** antes de criar qualquer campanha nova — ninguém cria campanha "no olho".
+- Padronizar a taxonomia e o Glossário (seção 3) em uma **planilha mestre** antes de criar qualquer campanha nova — ninguém cria campanha "no olho" nem inventa sigla nova sem documentar.
 - **Nunca reaproveitar** o nome de uma campanha pausada; nova estrutura = nova versão (`V2`, `V3`).
 - Nome de campanha com até ~60 caracteres visíveis (o limite técnico do Google Ads é maior, mas nomes longos quebram a leitura em relatório e Looker Studio).
 - Auditoria mensal de aderência à taxonomia (checklist rápido: campo por campo, campanha por campanha).
+- Toda sigla nova (objetivo, tipo de campanha, plataforma, formato) só entra em produção depois de adicionada ao Glossário oficial (seção 3).
 
-## 10. Plano de ação
+## 11. Plano de ação
 
 **Imediato (0–7 dias)**
-- Documentar a taxonomia acima na planilha mestre da conta.
-- Segmentar a campanha `[EME] [LEADS] PMAX | GERAL` em campanhas por linha de produto (seção 3), mantendo o orçamento total agregado no início para não perder volume de aprendizado.
+- Documentar a taxonomia e o Glossário (seção 3) na planilha mestre da conta.
+- Segmentar a campanha `[EME] [LEADS] PMAX | GERAL` em campanhas por linha de produto (seção 4), mantendo o orçamento total agregado no início para não perder volume de aprendizado.
 
 **Curto prazo (7–30 dias)**
-- Estruturar os grupos de recursos por público dentro de cada nova campanha (seção 4), separando prospecção de remarketing.
+- Estruturar os grupos de recursos por público dentro de cada nova campanha (seção 5), separando prospecção de remarketing.
 - Migrar sinais de audiência (customer match, públicos no site, públicos similares) para os grupos de recursos correspondentes.
 - Acompanhar CPA e volume de leads por campanha segmentada vs. a antiga "GERAL"; só pausar a "GERAL" depois de confirmar volume/CPA equivalente ou melhor.
 
 **Médio prazo (30–90 dias)**
-- Replicar a mesma lógica de campos (`[MARCA] [OBJETIVO] [TIPO] [SEGMENTO] [GEO] [IDIOMA] [VERSAO]`) em Meta Ads e LinkedIn Ads, para consolidar relatório cross-plataforma por linha de produto.
+- Replicar a mesma lógica de campos (`[MARCA] [PLATAFORMA] [OBJETIVO] [TIPO] [SEGMENTO] [GEO] [IDIOMA] [VERSAO]`) em LinkedIn Ads, para consolidar relatório cross-plataforma por linha de produto.
 - Revisar mensalmente performance por segmento de produto e realocar orçamento para os segmentos com melhor CPA/qualidade de lead.
