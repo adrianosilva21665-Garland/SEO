@@ -76,6 +76,19 @@ No Meta, o objetivo já define o tipo de campanha (não existe um segundo eixo c
 | `STORIES` | Stories (Meta) |
 | `REELS` | Reels (Meta) |
 
+### Canal de conversão (campo `CANAL`) — usado no Conjunto de Anúncios do Meta
+
+No Meta, "local de conversão" (WhatsApp, formulário, site, ligação) é escolhido **no Conjunto de Anúncios**, não na campanha — por isso é campo próprio, separado do público, nos objetivos que oferecem mais de um destino (`ENG`, `CAD`, `TRF`, `VND`). Só entra no nome quando a campanha tem mais de uma opção de canal para escolher; se só existe um canal possível, omitir.
+
+| Sigla | Significado |
+|---|---|
+| `WHATSAPP` | Conversas no WhatsApp |
+| `MESSENGER` | Conversas no Messenger |
+| `INSTAGRAM-DIRECT` | Conversas no Direct do Instagram |
+| `FORMULARIO-INSTANTANEO` | Instant Form dentro do Meta |
+| `SITE` | Formulário/checkout no site |
+| `LIGACAO` | Clique para ligar |
+
 ## 4. Estrutura de Campanha (Google Ads)
 
 ```
@@ -232,9 +245,9 @@ A hierarquia do Meta é **Campanha (objetivo) → Conjunto de Anúncios (públic
 [MARCA] [PLATAFORMA] [OBJETIVO] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
 ```
 
-**Conjunto de Anúncios** — `[FUNIL-OU-TIPO-SEGMENTACAO] [PUBLICO]`, mesma regra: 1 público/segmentação por conjunto, nunca "GERAL".
+**Conjunto de Anúncios** — `[FUNIL-OU-TIPO-SEGMENTACAO] [PUBLICO] [CANAL]`, mesma regra: 1 público/segmentação por conjunto, nunca "GERAL". `PUBLICO` e `CANAL` **nunca vão no mesmo token** — são dois eixos independentes (quem eu alcanço vs. onde a conversão acontece) — e `CANAL` (seção 3) só entra quando a campanha realmente tem mais de um destino pra escolher.
 
-**Anúncio** — `[CONJUNTO] [FORMATO] [TEMA] [VERSAO]` — `FORMATO` (seção 3) só entra no nome quando distingue peças diferentes, mesma lógica da seção 8.
+**Anúncio** — `[CONJUNTO] [FORMATO] [TEMA] [VERSAO]` — `FORMATO` (seção 3) é sempre o formato criativo (imagem/carrossel/vídeo), nunca o canal de conversão, e só entra no nome quando distingue peças diferentes, mesma lógica da seção 8.
 
 Um exemplo por objetivo:
 
@@ -254,17 +267,21 @@ Anúncio:   [PROSPECCAO] [INTERESSE-ENGENHARIA-CIVIL] [CARROSSEL] [ARTIGOS-TECNI
 
 **ENG — Engajamento** (mensagens no WhatsApp/Direct, vídeo views, interação)
 ```
-Campanha:  [EME] [META] [ENG] [MENSAGENS-WHATSAPP] [BR] [PT] [V1]
-Conjunto:  [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS]
-Anúncio:   [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS] [IMAGEM-UNICA] [FALE-CONOSCO] [V1]
+Campanha:  [EME] [META] [ENG] [INSTITUCIONAL] [BR] [PT] [V1]
+Conjunto:  [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS] [WHATSAPP]
+Anúncio:   [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS] [WHATSAPP] [IMAGEM-UNICA] [FALE-CONOSCO] [V1]
 ```
+> O canal (`WHATSAPP`) mora no Conjunto, não na campanha — é lá que o Meta deixa escolher o destino da conversa.
 
-**CAD — Cadastros** (geração de leads — formulário instantâneo ou site)
+**CAD — Cadastros** (mesmo público, testando 2 canais de conversão em paralelo)
 ```
 Campanha:  [EME] [META] [CAD] [EPS-INDUSTRIAL] [BR] [PT] [V1]
-Conjunto:  [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D]
-Anúncio:   [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [FORMULARIO-INSTANTANEO] [ORCAMENTO] [V1]
+Conjunto:  [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [FORMULARIO-INSTANTANEO]
+Conjunto:  [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [WHATSAPP]
+Anúncio:   [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [FORMULARIO-INSTANTANEO] [IMAGEM-UNICA] [ORCAMENTO] [V1]
+Anúncio:   [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [WHATSAPP] [IMAGEM-UNICA] [ORCAMENTO] [V1]
 ```
+> Mesmo público (`VISITANTES-SITE-90D`) rodando em 2 conjuntos, cada um com um canal — assim dá pra comparar CPL de lead por WhatsApp vs. formulário instantâneo sem misturar os dois no mesmo conjunto.
 
 **VND — Vendas** (conversão/catálogo)
 ```
@@ -285,6 +302,7 @@ Regras específicas do Meta:
 - **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO` é sempre uma das siglas da seção 3 — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `[EME] [META] [CAD-EPS] ...`).
 - **Cadastros ≠ Vendas ≠ Tráfego** mesmo que todos "gerem lead" na prática — cada objetivo otimiza o leilão para um evento diferente; escolher o objetivo errado (ex. Tráfego para gerar lead) faz o algoritmo otimizar para clique barato, não para conversão.
 - Público no Conjunto de Anúncios segue a mesma lógica da seção 5/8: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
+- **Público e canal são eixos diferentes, nunca junte os dois num "conjunto genérico".** Testar 2 canais (ex. WhatsApp vs. formulário) para o mesmo público é 2 conjuntos, cada um com o mesmo `PUBLICO` e um `CANAL` diferente — nunca 1 conjunto com os 2 canais ligados ao mesmo tempo, porque aí não dá pra saber qual canal converteu.
 - Exclua sempre o público de remarketing/convertidos dos conjuntos de prospecção, para não pagar duas vezes pelo mesmo lead.
 - Ative a **Vantagem+ (Advantage+ placements/audience)** apenas depois de já ter validado manualmente qual público/segmento converte melhor — usar Vantagem+ direto no público "GERAL" reproduz o mesmo problema de diluição de sinal do PMax (seção 1).
 
