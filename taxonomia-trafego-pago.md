@@ -18,13 +18,13 @@ Problemas identificados:
 - **Um campo = um propósito.** Nunca misturar duas informações no mesmo token.
 - **Ordem fixa e delimitador único e previsível** — facilita filtro, pivot table e regex.
 - **A nomenclatura reflete a hierarquia real da conta:** Conta → Campanha → Grupo de Anúncios/Grupo de Recursos → Anúncio/Recurso.
-- **Siglas curtas, maiúsculas, sem acento**, hífen dentro do token, underscore entre tokens.
+- **Colchetes separam os campos, hífen une palavras dentro do mesmo campo.** Formato: `[CAMPO-1] [CAMPO-2] [CAMPO-3]`. Nunca usar `_` nem `|` — colchete é o único delimitador entre campos, em todos os níveis (campanha, grupo, anúncio).
 - **PMax não tem "Grupo de Anúncios" nem "Anúncio"** no sentido tradicional — tem **Grupo de Recursos (Asset Group)** e **Recursos (Assets: headlines, descrições, imagens, vídeos)**. A taxonomia abaixo respeita essa diferença em vez de forçar uma estrutura de Search dentro do PMax.
 
 ## 3. Estrutura de Campanha
 
 ```
-[MARCA]_[OBJETIVO]_[TIPO]_[SEGMENTO-PRODUTO]_[GEO]_[IDIOMA]_[VERSAO]
+[MARCA] [OBJETIVO] [TIPO] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
 ```
 
 | Campo | Significado | Exemplo |
@@ -44,10 +44,10 @@ Problemas identificados:
 
 **Depois (segmentado por linha de produto, sinal de público limpo):**
 ```
-EME_LEADS_PMAX_EPS-INDUSTRIAL_BR_PT_V1
-EME_LEADS_PMAX_PAINEL-EPS_BR_PT_V1
-EME_LEADS_PMAX_DRYWALL_BR_PT_V1
-EME_LEADS_PMAX_ISOLAMENTO-TERMICO_BR_PT_V1
+[EME] [LEADS] [PMAX] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+[EME] [LEADS] [PMAX] [PAINEL-EPS] [BR] [PT] [V1]
+[EME] [LEADS] [PMAX] [DRYWALL] [BR] [PT] [V1]
+[EME] [LEADS] [PMAX] [ISOLAMENTO-TERMICO] [BR] [PT] [V1]
 ```
 
 Cada campanha agora pode ter público-alvo, orçamento, feed de sinais de audiência e metas de CPA próprios — o que é exatamente o que o PMax precisa para aprender rápido e bem.
@@ -55,16 +55,16 @@ Cada campanha agora pode ter público-alvo, orçamento, feed de sinais de audiê
 ## 4. Nível de Grupo de Recursos (equivalente ao Grupo de Anúncios no PMax)
 
 ```
-[FUNIL]_[PUBLICO]_[PRODUTO-ESPECIFICO]
+[FUNIL] [PUBLICO] [PRODUTO-ESPECIFICO]
 ```
 
-Exemplo dentro de `EME_LEADS_PMAX_EPS-INDUSTRIAL_BR_PT_V1`:
+Exemplo dentro de `[EME] [LEADS] [PMAX] [EPS-INDUSTRIAL] [BR] [PT] [V1]`:
 
 ```
-PROSPECCAO_ENGENHEIRO_EPS-INDUSTRIAL
-PROSPECCAO_CONSTRUTORA_EPS-INDUSTRIAL
-REMARKETING_VISITANTE-SITE_EPS-INDUSTRIAL
-REMARKETING_LEAD-NAO-CONVERTIDO_EPS-INDUSTRIAL
+[PROSPECCAO] [ENGENHEIRO] [EPS-INDUSTRIAL]
+[PROSPECCAO] [CONSTRUTORA] [EPS-INDUSTRIAL]
+[REMARKETING] [VISITANTE-SITE] [EPS-INDUSTRIAL]
+[REMARKETING] [LEAD-NAO-CONVERTIDO] [EPS-INDUSTRIAL]
 ```
 
 Regras:
@@ -75,18 +75,18 @@ Regras:
 
 ## 5. Nível de Recurso/Anúncio
 
-O PMax não permite nomear cada asset individualmente na interface, mas o controle interno (planilha de criativos, teste A/B, histórico) deve seguir:
+O PMax não permite nomear cada asset individualmente na interface, mas o controle interno (planilha de criativos, teste A/B, histórico) deve seguir a mesma sequência de colchetes do grupo, com mais campos no final:
 
 ```
-[GRUPO]_[TIPO-RECURSO]_[TEMA/ANGULO]_[VERSAO]
+[GRUPO] [TIPO-RECURSO] [TEMA/ANGULO] [VERSAO]
 ```
 
 Exemplos:
 
 ```
-PROSPECCAO_ENGENHEIRO_EPS-INDUSTRIAL_HEADLINE_DOR-TECNICA_V1
-PROSPECCAO_ENGENHEIRO_EPS-INDUSTRIAL_IMAGEM_APLICACAO-OBRA_V2
-REMARKETING_VISITANTE-SITE_EPS-INDUSTRIAL_VIDEO_PROVA-SOCIAL_V1
+[PROSPECCAO] [ENGENHEIRO] [EPS-INDUSTRIAL] [HEADLINE] [DOR-TECNICA] [V1]
+[PROSPECCAO] [ENGENHEIRO] [EPS-INDUSTRIAL] [IMAGEM] [APLICACAO-OBRA] [V2]
+[REMARKETING] [VISITANTE-SITE] [EPS-INDUSTRIAL] [VIDEO] [PROVA-SOCIAL] [V1]
 ```
 
 Isso permite rastrear, na planilha mestre de criativos, qual ângulo de copy/imagem está performando por público — mesmo sem poder nomear o asset dentro do Google Ads.
@@ -95,20 +95,20 @@ Isso permite rastrear, na planilha mestre de criativos, qual ângulo de copy/ima
 
 Campanha:
 ```
-EME_LEADS_SEARCH_EPS-INDUSTRIAL_BR_PT_V1
+[EME] [LEADS] [SEARCH] [EPS-INDUSTRIAL] [BR] [PT] [V1]
 ```
 
 Grupo de Anúncios (por intenção/tema de palavra-chave, não por "geral"):
 ```
-ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL
-COMPARACAO_EPS-VS-XPS
-INFORMACIONAL_O-QUE-E-EPS-INDUSTRIAL
+[ALTA-INTENCAO] [COMPRA-EPS-INDUSTRIAL]
+[COMPARACAO] [EPS-VS-XPS]
+[INFORMACIONAL] [O-QUE-E-EPS-INDUSTRIAL]
 ```
 
 Anúncio (RSA):
 ```
-ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL_RSA_ENTREGA-RAPIDA_V1
-ALTA-INTENCAO_COMPRA-EPS-INDUSTRIAL_RSA_CERTIFICACAO-TECNICA_V1
+[ALTA-INTENCAO] [COMPRA-EPS-INDUSTRIAL] [RSA] [ENTREGA-RAPIDA] [V1]
+[ALTA-INTENCAO] [COMPRA-EPS-INDUSTRIAL] [RSA] [CERTIFICACAO-TECNICA] [V1]
 ```
 
 ## 7. Exemplo aplicado: Impulsionamento de Vídeo — 4 Grupos de Anúncios por Tipo de Segmentação
@@ -117,44 +117,44 @@ Campanha de vídeo (YouTube Ads/Google Ads) tem Grupo de Anúncios de verdade �
 
 **Campanha** (mesmo padrão da seção 3, `TIPO` = `VIDEO`):
 ```
-EME_LEADS_VIDEO_INSTITUCIONAL_BR_PT_V1
+[EME] [LEADS] [VIDEO] [INSTITUCIONAL] [BR] [PT] [V1]
 ```
 > Troque `INSTITUCIONAL` pelo tema real do vídeo se for específico de produto (ex. `EPS-INDUSTRIAL`, `PAINEL-EPS`).
 
-**Grupo de Anúncios** — `[FUNIL]_[TIPO-SEGMENTACAO]-[DETALHE]`, um método de segmentação por grupo, nunca um grupo "GERAL":
+**Grupo de Anúncios** — `[FUNIL] [TIPO-SEGMENTACAO]`, um método de segmentação por grupo, nunca um grupo "GERAL":
 ```
-PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO
-PROSPECCAO_PUBLICO-PERSONALIZADO
-PROSPECCAO_PALAVRA-CHAVE
-PROSPECCAO_DEMOGRAFICO-A-DEFINIR
+[PROSPECCAO] [COLOCACAO-CANAIS-CONSTRUCAO]
+[PROSPECCAO] [PUBLICO-PERSONALIZADO]
+[PROSPECCAO] [PALAVRA-CHAVE]
+[PROSPECCAO] [DEMOGRAFICO-A-DEFINIR]
 ```
 
 | Grupo | Tipo de segmentação (targeting no Ads) | O que configurar |
 |---|---|---|
-| `PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO` | **Colocações (Placements)** | Lista curada de canais do YouTube sobre construção/reforma/engenharia onde o anúncio pode aparecer |
-| `PROSPECCAO_PUBLICO-PERSONALIZADO` | **Público-alvo personalizado (Custom Segment)** | Público criado a partir de palavras/termos de busca recentes, apps ou sites que o público-alvo usa/visita |
-| `PROSPECCAO_PALAVRA-CHAVE` | **Palavras-chave** | Lista de keywords relacionadas ao vídeo/canal onde o anúncio deve aparecer (igual lógica de Search, mas para conteúdo de vídeo) |
-| `PROSPECCAO_DEMOGRAFICO-A-DEFINIR` | **Demografia** | Idade, gênero, status parental e/ou renda familiar — troque `A-DEFINIR` pelo recorte real assim que definir (ex. `PROSPECCAO_DEMOGRAFICO-35-54-DECISOR`) |
+| `[PROSPECCAO] [COLOCACAO-CANAIS-CONSTRUCAO]` | **Colocações (Placements)** | Lista curada de canais do YouTube sobre construção/reforma/engenharia onde o anúncio pode aparecer |
+| `[PROSPECCAO] [PUBLICO-PERSONALIZADO]` | **Público-alvo personalizado (Custom Segment)** | Público criado a partir de palavras/termos de busca recentes, apps ou sites que o público-alvo usa/visita |
+| `[PROSPECCAO] [PALAVRA-CHAVE]` | **Palavras-chave** | Lista de keywords relacionadas ao vídeo/canal onde o anúncio deve aparecer (igual lógica de Search, mas para conteúdo de vídeo) |
+| `[PROSPECCAO] [DEMOGRAFICO-A-DEFINIR]` | **Demografia** | Idade, gênero, status parental e/ou renda familiar — troque `A-DEFINIR` pelo recorte real assim que definir (ex. `[PROSPECCAO] [DEMOGRAFICO-35-54-DECISOR]`) |
 
-**Anúncio de vídeo** — `[GRUPO]_[FORMATO]_[TEMA]_[VERSAO]`:
+**Anúncio de vídeo** — `[GRUPO] [FORMATO] [TEMA] [VERSAO]`:
 ```
-PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO_INSTREAM-SKIP_DOR-TECNICA_V1
-PROSPECCAO_PUBLICO-PERSONALIZADO_INSTREAM-SKIP_DOR-TECNICA_V1
-PROSPECCAO_PALAVRA-CHAVE_INFEED_DOR-TECNICA_V1
-PROSPECCAO_DEMOGRAFICO-A-DEFINIR_BUMPER_DOR-TECNICA_V1
+[PROSPECCAO] [COLOCACAO-CANAIS-CONSTRUCAO] [INSTREAM-SKIP] [DOR-TECNICA] [V1]
+[PROSPECCAO] [PUBLICO-PERSONALIZADO] [INSTREAM-SKIP] [DOR-TECNICA] [V1]
+[PROSPECCAO] [PALAVRA-CHAVE] [INFEED] [DOR-TECNICA] [V1]
+[PROSPECCAO] [DEMOGRAFICO-A-DEFINIR] [BUMPER] [DOR-TECNICA] [V1]
 ```
 > Como é o mesmo vídeo/oferta rodando em 4 métodos de segmentação diferentes, o `TEMA` do anúncio pode ficar igual entre os grupos — o que muda é só o `GRUPO` (a forma de encontrar a audiência). Se cada grupo tiver um corte de vídeo diferente, ajuste o `TEMA` também.
 
-**Quando é o mesmo anúncio servindo em vários formatos ao mesmo tempo** (caso mais comum: você sobe 1 vídeo numa campanha de Vídeo e o Google serve automaticamente como in-stream pulável + in-feed + shorts, sem você criar 3 anúncios separados), **não crie um `FORMATO` por anúncio** — é um único anúncio, então o token de formato sai do nome:
+**Quando é o mesmo anúncio servindo em vários formatos ao mesmo tempo** (caso mais comum: você sobe 1 vídeo numa campanha de Vídeo e o Google serve automaticamente como in-stream pulável + in-feed + shorts, sem você criar 3 anúncios separados), **não crie um `[FORMATO]` por anúncio** — é um único anúncio, então esse campo sai do nome:
 
-`[GRUPO]_[TEMA]_[VERSAO]`
+`[GRUPO] [TEMA] [VERSAO]`
 
 Exemplo real (produto = EPS para núcleo de telhas, vídeo gravado no escritório, rodando in-stream pulável + in-feed + shorts de uma vez só):
 ```
-PROSPECCAO_COLOCACAO-CANAIS-CONSTRUCAO_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
-PROSPECCAO_PUBLICO-PERSONALIZADO_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
-PROSPECCAO_PALAVRA-CHAVE_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
-PROSPECCAO_DEMOGRAFICO-A-DEFINIR_EPS-NUCLEO-TELHAS-ESCRITORIO_V1
+[PROSPECCAO] [COLOCACAO-CANAIS-CONSTRUCAO] [EPS-NUCLEO-TELHAS-ESCRITORIO] [V1]
+[PROSPECCAO] [PUBLICO-PERSONALIZADO] [EPS-NUCLEO-TELHAS-ESCRITORIO] [V1]
+[PROSPECCAO] [PALAVRA-CHAVE] [EPS-NUCLEO-TELHAS-ESCRITORIO] [V1]
+[PROSPECCAO] [DEMOGRAFICO-A-DEFINIR] [EPS-NUCLEO-TELHAS-ESCRITORIO] [V1]
 ```
 
 Regra: **só usa `[FORMATO]` no nome quando existir mais de uma peça/anúncio diferente por grupo** (ex. você testar um corte in-stream contra um corte shorts como criativos distintos). Se é um anúncio único cobrindo vários formatos automaticamente, o formato não entra no nome — quem já sabe que aquela campanha serve nos 3 formatos não precisa repetir isso no nome de cada anúncio.
@@ -176,62 +176,62 @@ A hierarquia do Meta é **Campanha (objetivo) → Conjunto de Anúncios (públic
 
 **Campanha** (mesmo padrão da seção 3, `TIPO` = `META`):
 ```
-[MARCA]_[OBJETIVO-ODAX]_META_[SEGMENTO-PRODUTO]_[GEO]_[IDIOMA]_[VERSAO]
+[MARCA] [OBJETIVO-ODAX] [META] [SEGMENTO-PRODUTO] [GEO] [IDIOMA] [VERSAO]
 ```
 
-**Conjunto de Anúncios** — `[FUNIL-OU-TIPO-SEGMENTACAO]_[PUBLICO]`, mesma regra: 1 público/segmentação por conjunto, nunca "GERAL".
+**Conjunto de Anúncios** — `[FUNIL-OU-TIPO-SEGMENTACAO] [PUBLICO]`, mesma regra: 1 público/segmentação por conjunto, nunca "GERAL".
 
-**Anúncio** — `[CONJUNTO]_[FORMATO]_[TEMA]_[VERSAO]`, onde `FORMATO` é `IMAGEM-UNICA`, `CARROSSEL`, `VIDEO`, `COLECAO`, `STORIES` ou `REELS` — só entra no nome quando distingue peças diferentes, mesma lógica da seção 7.
+**Anúncio** — `[CONJUNTO] [FORMATO] [TEMA] [VERSAO]`, onde `FORMATO` é `IMAGEM-UNICA`, `CARROSSEL`, `VIDEO`, `COLECAO`, `STORIES` ou `REELS` — só entra no nome quando distingue peças diferentes, mesma lógica da seção 7.
 
 Um exemplo por objetivo:
 
 **RECONHECIMENTO** (alcance/topo de funil, marca)
 ```
-Campanha:  EME_RECONHECIMENTO_META_INSTITUCIONAL_BR_PT_V1
-Conjunto:  ALCANCE-AMPLO_INTERESSE-CONSTRUCAO-CIVIL
-Anúncio:   ALCANCE-AMPLO_INTERESSE-CONSTRUCAO-CIVIL_VIDEO_MARCA-EME_V1
+Campanha:  [EME] [RECONHECIMENTO] [META] [INSTITUCIONAL] [BR] [PT] [V1]
+Conjunto:  [ALCANCE-AMPLO] [INTERESSE-CONSTRUCAO-CIVIL]
+Anúncio:   [ALCANCE-AMPLO] [INTERESSE-CONSTRUCAO-CIVIL] [VIDEO] [MARCA-EME] [V1]
 ```
 
 **TRAFEGO** (levar para site/blog técnico)
 ```
-Campanha:  EME_TRAFEGO_META_BLOG-TECNICO_BR_PT_V1
-Conjunto:  PROSPECCAO_INTERESSE-ENGENHARIA-CIVIL
-Anúncio:   PROSPECCAO_INTERESSE-ENGENHARIA-CIVIL_CARROSSEL_ARTIGOS-TECNICOS_V1
+Campanha:  [EME] [TRAFEGO] [META] [BLOG-TECNICO] [BR] [PT] [V1]
+Conjunto:  [PROSPECCAO] [INTERESSE-ENGENHARIA-CIVIL]
+Anúncio:   [PROSPECCAO] [INTERESSE-ENGENHARIA-CIVIL] [CARROSSEL] [ARTIGOS-TECNICOS] [V1]
 ```
 
 **ENGAJAMENTO** (mensagens no WhatsApp/Direct, vídeo views, interação)
 ```
-Campanha:  EME_ENGAJAMENTO_META_MENSAGENS-WHATSAPP_BR_PT_V1
-Conjunto:  LOOKALIKE-1PORCENTO_LEADS-CONVERTIDOS
-Anúncio:   LOOKALIKE-1PORCENTO_LEADS-CONVERTIDOS_IMAGEM-UNICA_FALE-CONOSCO_V1
+Campanha:  [EME] [ENGAJAMENTO] [META] [MENSAGENS-WHATSAPP] [BR] [PT] [V1]
+Conjunto:  [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS]
+Anúncio:   [LOOKALIKE-1PORCENTO] [LEADS-CONVERTIDOS] [IMAGEM-UNICA] [FALE-CONOSCO] [V1]
 ```
 
 **CADASTROS** (geração de leads — formulário instantâneo ou site)
 ```
-Campanha:  EME_CADASTROS_META_EPS-INDUSTRIAL_BR_PT_V1
-Conjunto:  PUBLICO-PERSONALIZADO_VISITANTES-SITE-90D
-Anúncio:   PUBLICO-PERSONALIZADO_VISITANTES-SITE-90D_FORMULARIO-INSTANTANEO_ORCAMENTO_V1
+Campanha:  [EME] [CADASTROS] [META] [EPS-INDUSTRIAL] [BR] [PT] [V1]
+Conjunto:  [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D]
+Anúncio:   [PUBLICO-PERSONALIZADO] [VISITANTES-SITE-90D] [FORMULARIO-INSTANTANEO] [ORCAMENTO] [V1]
 ```
 
 **VENDAS** (conversão/catálogo)
 ```
-Campanha:  EME_VENDAS_META_CATALOGO-PRODUTOS_BR_PT_V1
-Conjunto:  REMARKETING_CARRINHO-ABANDONADO
-Anúncio:   REMARKETING_CARRINHO-ABANDONADO_COLECAO_CATALOGO-DINAMICO_V1
+Campanha:  [EME] [VENDAS] [META] [CATALOGO-PRODUTOS] [BR] [PT] [V1]
+Conjunto:  [REMARKETING] [CARRINHO-ABANDONADO]
+Anúncio:   [REMARKETING] [CARRINHO-ABANDONADO] [COLECAO] [CATALOGO-DINAMICO] [V1]
 ```
 
 **PROMOCAO-APP** (só se houver app — não se aplica hoje a esse negócio, template para o futuro)
 ```
-Campanha:  EME_PROMOCAO-APP_META_APP-ORCAMENTO_BR_PT_V1
-Conjunto:  LOOKALIKE_USUARIOS-APP-ATIVOS
-Anúncio:   LOOKALIKE_USUARIOS-APP-ATIVOS_VIDEO_DEMO-APP_V1
+Campanha:  [EME] [PROMOCAO-APP] [META] [APP-ORCAMENTO] [BR] [PT] [V1]
+Conjunto:  [LOOKALIKE] [USUARIOS-APP-ATIVOS]
+Anúncio:   [LOOKALIKE] [USUARIOS-APP-ATIVOS] [VIDEO] [DEMO-APP] [V1]
 ```
 
 Regras específicas do Meta:
 
-- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO-ODAX` é sempre um dos 6 valores acima — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `EME_LEADS-EPS_META...`).
+- **Nunca misturar objetivo com segmento no mesmo campo.** `OBJETIVO-ODAX` é sempre um dos 6 valores acima — segmento de produto vai no campo `SEGMENTO-PRODUTO`, nunca junto (ex. não fazer `[EME] [LEADS-EPS] [META] ...`).
 - **Cadastros ≠ Vendas ≠ Tráfego** mesmo que todos "gerem lead" na prática — cada objetivo otimiza o leilão para um evento diferente; escolher o objetivo errado (ex. Tráfego para gerar lead) faz o algoritmo otimizar para clique barato, não para conversão.
-- Public no Conjunto de Anúncios segue a mesma lógica da seção 4/7: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
+- Público no Conjunto de Anúncios segue a mesma lógica da seção 4/7: **1 tipo de público por conjunto** — interesse, lookalike, público personalizado (custom audience) e remarketing não devem estar no mesmo conjunto.
 - Exclua sempre o público de remarketing/convertidos dos conjuntos de prospecção, para não pagar duas vezes pelo mesmo lead.
 - Ative a **Vantagem+ (Advantage+ placements/audience)** apenas depois de já ter validado manualmente qual público/segmento converte melhor — usar Vantagem+ direto no público "GERAL" reproduz o mesmo problema de diluição de sinal do PMax (seção 1).
 
@@ -254,5 +254,5 @@ Regras específicas do Meta:
 - Acompanhar CPA e volume de leads por campanha segmentada vs. a antiga "GERAL"; só pausar a "GERAL" depois de confirmar volume/CPA equivalente ou melhor.
 
 **Médio prazo (30–90 dias)**
-- Replicar a mesma lógica de campos (MARCA_OBJETIVO_TIPO_SEGMENTO_GEO_IDIOMA_VERSAO) em Meta Ads e LinkedIn Ads, para consolidar relatório cross-plataforma por linha de produto.
+- Replicar a mesma lógica de campos (`[MARCA] [OBJETIVO] [TIPO] [SEGMENTO] [GEO] [IDIOMA] [VERSAO]`) em Meta Ads e LinkedIn Ads, para consolidar relatório cross-plataforma por linha de produto.
 - Revisar mensalmente performance por segmento de produto e realocar orçamento para os segmentos com melhor CPA/qualidade de lead.
