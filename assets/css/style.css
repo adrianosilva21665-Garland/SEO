@@ -124,6 +124,15 @@ h2 {
   text-align: center;
 }
 
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  margin: 0 0 14px;
+}
+
 .hero h1 {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   max-width: 780px;
@@ -149,7 +158,16 @@ h2 {
   padding: 56px 0;
 }
 
-.beneficios-lista {
+.secao-intro {
+  max-width: 680px;
+  margin: -8px auto 32px;
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: 1.05rem;
+}
+
+.beneficios-lista,
+.diferenciais-lista {
   list-style: none;
   margin: 0 auto;
   padding: 0;
@@ -158,11 +176,17 @@ h2 {
   gap: 16px;
 }
 
-.beneficios-lista li {
+.beneficios-lista li,
+.diferenciais-lista li {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   font-size: 1.05rem;
+}
+
+.diferenciais {
+  padding: 56px 0;
+  background: var(--cor-fundo-alt);
 }
 
 .icone {

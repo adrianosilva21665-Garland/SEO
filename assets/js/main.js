@@ -24,7 +24,7 @@ form.addEventListener("submit", function (evento) {
   }
 
   const mensagem =
-    `Olá! Quero garantir minha vaga no Curso ICF.\n` +
+    `Olá! Quero garantir minha vaga na turma de Construção Inteligente (ICF) na fábrica EME.\n` +
     `Nome: ${dados.nome}\n` +
     `E-mail: ${dados.email}\n` +
     `WhatsApp: ${dados.whatsapp}\n` +
