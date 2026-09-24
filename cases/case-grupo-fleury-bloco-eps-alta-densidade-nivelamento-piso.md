@@ -1,5 +1,22 @@
 # Case Grupo Fleury — Bloco de EPS de alta densidade para nivelamento de piso
 
+## Card para a aba de cases
+
+Chamada da listagem — o que aparece na aba antes do clique.
+
+- **Título do card:** Grupo Fleury — nivelamento de piso com bloco de EPS
+- **Tag/segmento:** Saúde · Nivelamento de piso
+- **Destaque numérico:** 11 caminhões entregues
+- **Resumo (2 linhas):** Regularização de piso em obra do Grupo Fleury com bloco de
+  EPS de alta densidade: cota corrigida sem adicionar carga permanente à laje e sem
+  tempo de cura entre o enchimento e o contrapiso.
+- **Texto do link:** Ver o case completo
+- **Destino:** `/cases/grupo-fleury-bloco-eps-nivelamento-de-piso`
+- **Imagem do card:** foto da aplicação do bloco em obra
+  `alt`: "Blocos de EPS de alta densidade assentados para nivelamento de piso em obra"
+
+---
+
 ## Metadados de SEO
 
 - **URL:** `/cases/grupo-fleury-bloco-eps-nivelamento-de-piso`
