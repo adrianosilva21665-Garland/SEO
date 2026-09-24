@@ -1,8 +1,11 @@
 # Case Grupo Fleury — Bloco de EPS de alta densidade para nivelamento de piso
 
-## Card para a aba de cases
+Formatado no molde da página de case do site (padrão Terra Parque Eco Resort):
+bloco de texto → galeria → bloco de texto → galeria, com rótulo lateral em cada seção.
 
-Chamada da listagem — o que aparece na aba antes do clique.
+---
+
+## Card para a aba de cases
 
 - **Título do card:** Grupo Fleury — nivelamento de piso com bloco de EPS
 - **Tag/segmento:** Saúde · Nivelamento de piso
@@ -32,135 +35,112 @@ Chamada da listagem — o que aparece na aba antes do clique.
 
 ---
 
-# Grupo Fleury: bloco de EPS de alta densidade no nivelamento de piso
+# TEXTO DA PÁGINA
 
-Nivelar um piso parece uma etapa simples de obra — até o momento em que se soma o
-peso do material de enchimento e se descobre que a estrutura não tem folga para
-recebê-lo. Foi esse o ponto de partida do projeto que atendemos para o Grupo
-Fleury, e a solução passou pelo bloco de EPS de alta densidade: **11 caminhões de
-material entregues em obra** para regularizar a cota do piso sem adicionar carga
-significativa à laje.
+## HERO
 
-## O cliente
+**Título sobre a imagem:** Grupo Fleury
 
-O [Grupo Fleury](https://www.fleury.com.br/) é uma das maiores empresas de
-medicina diagnóstica do Brasil. Sua rede de unidades de atendimento e laboratórios
-opera sob exigências de infraestrutura que pouca obra comercial enfrenta:
-equipamentos de diagnóstico por imagem com peso concentrado, ambientes com controle
-rigoroso e reformas que precisam avançar dentro de edificações em pleno
-funcionamento, sem interromper o atendimento.
+`alt` da imagem de hero: "Obra de nivelamento de piso com bloco de EPS em unidade do
+Grupo Fleury"
 
-Nesse cenário, cada decisão de especificação de material tem consequência direta em
-três frentes ao mesmo tempo: estrutura, prazo e convivência com a operação.
+---
 
-## O desafio: nivelar sem pesar
+## BLOCO 1
 
-A obra exigia corrigir desníveis e levar o piso à cota de projeto. O caminho
-tradicional para isso — enchimento com areia, entulho reciclado ou concreto magro —
-esbarrava em quatro limitações:
+**Rótulo lateral:**
+SOLUÇÕES TÉCNICAS PARA AMBIENTES DE SAÚDE
 
-**Carga permanente sobre a estrutura.** Material de enchimento convencional pesa na
-casa de mais de uma tonelada por metro cúbico. Em uma laje existente, cada
-centímetro de regularização consome capacidade estrutural que deveria estar
-reservada para equipamento, mobiliário e ocupação.
+**Título:**
+Nivelamento de piso sem sobrecarregar a estrutura
 
-**Tempo de cura.** Camadas espessas de argamassa ou concreto precisam curar antes
-da etapa seguinte. Esse intervalo trava o cronograma inteiro em cima de um serviço
-que, tecnicamente, é apenas preparação.
+**Texto:**
 
-**Logística dentro de um prédio em uso.** Material a granel significa mais viagens,
-mais movimentação vertical, mais poeira e mais entulho circulando em um ambiente de
-saúde em funcionamento.
+O Grupo Fleury é uma das maiores empresas de medicina diagnóstica do Brasil, com
+unidades que operam sob exigências rígidas de infraestrutura e não podem parar de
+atender durante a obra.
 
-**Espessura variável.** O desnível a vencer não era uniforme. A solução precisava
-se ajustar em obra, e não obrigar a obra a se ajustar a ela.
+Em um projeto que pedia correção de desníveis sem adicionar carga permanente à laje,
+o bloco de EPS de alta densidade da EME foi a solução aplicada, entregando leveza
+estrutural e agilidade na execução.
 
-## A solução: bloco de EPS de alta densidade
+### PARTE 1 — OBRA
+*(galeria: chegada e descarga do material no canteiro)*
 
-O bloco de EPS de alta densidade substitui o enchimento pesado por um material
-celular rígido, moldado em blocos e cortado na obra na espessura necessária.
+---
 
-A diferença está na ordem de grandeza: enquanto um enchimento em areia úmida
-trabalha na faixa de 1.500 a 1.700 kg/m³, o bloco de EPS fica na casa das dezenas de
-quilos por metro cúbico. Na prática, **cerca de 1% do peso** — mantendo a
-resistência à compressão necessária para receber o contrapiso e as cargas de uso do
-ambiente.
+## BLOCO 2
 
-### Por que o EPS resolveu o problema
+**Rótulo lateral:**
+LEVEZA ESTRUTURAL EM LAJE EXISTENTE
 
-**Alívio de carga na laje.** A troca de material libera capacidade estrutural em vez
-de consumi-la. Em retrofit sobre estrutura existente, esse é frequentemente o fator
-que viabiliza ou inviabiliza o projeto.
+**Título:**
+Cerca de 1% do peso de um enchimento convencional
 
-**Execução em seco, sem cura.** O bloco chega pronto, é cortado e assentado. A
-frente de serviço seguinte começa em sequência, não depois de uma espera técnica.
+**Texto:**
 
-**Regularização com precisão.** O corte em obra absorve espessuras variáveis e
-acompanha o desnível real encontrado, sem retrabalho e sem sobreconsumo de material.
+Um enchimento em areia úmida pesa entre 1.500 e 1.700 kg/m³. O bloco de EPS trabalha
+na casa das dezenas de quilos por metro cúbico, mantendo a resistência necessária
+para receber o contrapiso.
 
-**Estabilidade ao longo do tempo.** O EPS não absorve água de forma significativa,
-não apodrece e não se decompõe. A camada de enchimento não recalca nem perde
-volume anos depois.
+Na prática, cada centímetro de regularização deixa de consumir capacidade estrutural
+e libera a laje para o que realmente importa: equipamentos, mobiliário e ocupação.
 
-**Compatibilidade com instalações.** Nichos para tubulações e eletrodutos são
-abertos no próprio bloco, sem quebra posterior de contrapiso.
+### PARTE 2 — OBRA
+*(galeria: corte e assentamento dos blocos, ajuste de espessura)*
 
-**Canteiro limpo e leve.** O material é manuseado por poucos operadores, dispensa
-içamento pesado e o resíduo de corte é reaproveitável — diferença sensível dentro de
-um edifício que continua atendendo pacientes.
+---
 
-### O que define um bloco de EPS para essa aplicação
+## BLOCO 3
 
-| Item | Referência |
-|---|---|
-| Produto | Bloco de EPS de alta densidade, cortado sob medida |
-| Classificação | Massa específica aparente conforme ABNT NBR 11752, nas classes de maior densidade |
-| Comportamento ao fogo | EPS tipo F, com aditivo retardante à chama |
-| Acabamento | Contrapiso armado executado sobre a camada de enchimento |
-| Aplicação | Enchimento e regularização de piso sobre laje |
+**Rótulo lateral:**
+FORNECIMENTO ALINHADO AO CRONOGRAMA
 
-A especificação correta não é "EPS": é a classe de massa específica compatível com
-a carga de uso prevista. Bloco subdimensionado deforma; superdimensionado encarece
-sem necessidade. É por isso que o dimensionamento passa pelo time técnico antes do
-pedido.
+**Título:**
+11 caminhões entregues no ritmo da obra
 
-## A operação: 11 caminhões de bloco de EPS
+**Texto:**
 
-O volume do projeto demandou **11 caminhões** de bloco de EPS entregues na obra.
+O volume do projeto demandou 11 caminhões de bloco de EPS. Por ser um material leve,
+cada carga transporta muito volume e pouco peso — o que exige capacidade produtiva e
+programação de entrega sincronizada com o canteiro.
 
-Esse número diz mais sobre a operação do que parece. Justamente por ser leve, o EPS
-é um material que ocupa volume: cada carga transporta muito espaço e pouco peso.
-Uma obra desse porte não se resolve com capacidade produtiva apenas — depende de
-**programação de entrega sincronizada com o cronograma do canteiro**.
+Em um edifício em operação não existe pátio para estocar tudo de uma vez. As cargas
+foram programadas em etapas, acompanhando as frentes de serviço, com cada caminhão
+chegando próximo ao momento da aplicação.
 
-Em um edifício em operação, não existe pátio para estocar todo o material de uma
-vez. As cargas foram programadas em etapas, acompanhando o avanço das frentes de
-serviço, de modo que cada caminhão chegasse próximo ao momento da aplicação. Menos
-material parado no canteiro, menos manuseio, menos risco de dano e menos
-interferência na rotina da unidade.
+### PARTE 3 — OBRA
+*(galeria: blocos aplicados, nichos de instalações, área regularizada)*
 
-## Resultados
+---
 
-- **11 caminhões** de bloco de EPS de alta densidade entregues conforme a
-  programação da obra.
-- Piso nivelado com redução expressiva de carga permanente sobre a estrutura em
-  comparação ao enchimento convencional.
-- Etapa de regularização executada em seco, sem tempo de cura entre o enchimento e
-  o contrapiso.
-- Menor movimentação de material e geração reduzida de entulho, em um ambiente de
-  saúde em funcionamento.
-- Espessuras variáveis resolvidas com corte em obra, sem retrabalho.
+## BLOCO 4
 
-## Onde essa solução se aplica
+**Rótulo lateral:**
+ENGENHARIA A SERVIÇO DE AMBIENTES QUE CUIDAM DE PESSOAS
 
-O raciocínio — nivelar sem pesar — se repete sempre que existe limite estrutural,
-limite de prazo ou obra em ambiente ocupado:
+**Título:**
+Estruturas mais leves, obras mais rápidas
 
-- Retrofit de lajes em edifícios existentes com capacidade estrutural limitada;
-- Enchimento de áreas molhadas e rebaixos de banheiro;
-- Regularização e caimento de piso em coberturas e terraços;
-- Grandes áreas de piso em hospitais, laboratórios, clínicas, shoppings e escolas;
-- Correção de nível em lajes onde o enchimento convencional não cabe no cálculo.
+**Texto:**
+
+A aplicação em seco dispensa tempo de cura entre o enchimento e o contrapiso, e o
+corte em obra absorve espessuras variáveis sem retrabalho — menos entulho e menos
+movimentação dentro de um ambiente em funcionamento.
+
+A parceria com o Grupo Fleury reafirma como a engenharia em EPS contribui com
+projetos que exigem precisão técnica, prazo curto e convivência com a operação do
+cliente.
+
+### PARTE FINAL
+*(galeria: piso nivelado, pronto para o contrapiso)*
+
+---
+
+# MATERIAL DE APOIO
+
+Conteúdo que não cabe no formato atual da página, guardado para uso em LP de produto,
+blog ou em uma eventual seção de perguntas frequentes no case.
 
 ## Perguntas frequentes
 
@@ -175,8 +155,8 @@ fica na casa das dezenas de quilos por metro cúbico — aproximadamente 1% do p
 
 **O EPS absorve água ou apodrece com o tempo?**
 Não. O EPS não absorve água de forma significativa, não serve de alimento para
-micro-organismos e não se decompõe, o que evita recalque e perda de volume da
-camada de enchimento.
+micro-organismos e não se decompõe, o que evita recalque e perda de volume da camada
+de enchimento.
 
 **Dá para passar tubulação dentro da camada de EPS?**
 Sim. Os nichos são abertos no próprio bloco durante a aplicação, sem necessidade de
@@ -187,9 +167,20 @@ Porque o EPS é um material de baixa densidade: cada carga leva muito volume e p
 peso. Obras de grande área exigem programação de entregas em etapas, acompanhando o
 cronograma do canteiro.
 
----
+## Especificação técnica
 
-## Precisa nivelar piso sem sobrecarregar a estrutura?
+| Item | Referência |
+|---|---|
+| Produto | Bloco de EPS de alta densidade, cortado sob medida |
+| Classificação | Massa específica aparente conforme ABNT NBR 11752, nas classes de maior densidade |
+| Comportamento ao fogo | EPS tipo F, com aditivo retardante à chama |
+| Acabamento | Contrapiso armado executado sobre a camada de enchimento |
+| Aplicação | Enchimento e regularização de piso sobre laje |
 
-Fale com nosso time técnico. Fazemos o dimensionamento do bloco de EPS para o seu
-projeto — classe do material, volume e programação de entrega — do orçamento à obra.
+## Outras aplicações da solução
+
+- Retrofit de lajes em edifícios existentes com capacidade estrutural limitada;
+- Enchimento de áreas molhadas e rebaixos de banheiro;
+- Regularização e caimento de piso em coberturas e terraços;
+- Grandes áreas de piso em hospitais, laboratórios, clínicas, shoppings e escolas;
+- Correção de nível em lajes onde o enchimento convencional não cabe no cálculo.
